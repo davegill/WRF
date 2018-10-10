@@ -13,15 +13,16 @@ CONTAINS
                              , tracer, tracer_tend              &
                              , scalar , scalar_tend             &
                              , fdda3d, fdda2d                   &
-                             , ru_tendf, rv_tendf               &
-                             , rw_tendf, t_tendf                &
-                             , ph_tendf, mu_tendf               &
-                             , tke_tend                         &
+!                            , ru_tendf, rv_tendf               &
+!                            , rw_tendf, t_tendf                &
+!                            , ph_tendf, mu_tendf               &
+!                            , tke_tend                         &
                              , adapt_step_flag , curr_secs      &
                              , psim , psih , gz1oz0 , chklowq   &
-                             , cu_act_flag , hol , th_phy       &
-                             , pi_phy , p_phy , t_phy           &
-                             , dz8w , p8w , t8w                 &
+                             , cu_act_flag , hol                &
+!                            , th_phy                           &
+!                            , pi_phy , p_phy , t_phy           &
+!                            , dz8w , p8w , t8w                 &
                              , nba_mij, n_nba_mij               & !JDM
                              , nba_rij, n_nba_rij               & !JDM
                              , ids, ide, jds, jde, kds, kde     &
@@ -97,22 +98,22 @@ CONTAINS
     LOGICAL ,DIMENSION(ims:ime,jms:jme), INTENT(INOUT)         :: cu_act_flag
     REAL    ,DIMENSION(ims:ime,jms:jme), INTENT(INOUT)         :: hol
 
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: pi_phy
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: p_phy
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_phy
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: dz8w
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: p8w
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t8w
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: th_phy
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: pi_phy
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: p_phy
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_phy
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: dz8w
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: p8w
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t8w
 
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: ru_tendf
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: rv_tendf
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: rw_tendf
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: ph_tendf
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_tendf
-    REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: tke_tend
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: ru_tendf
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: rv_tendf
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: rw_tendf
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: ph_tendf
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: t_tendf
+!   REAL    ,DIMENSION(ims:ime,kms:kme,jms:jme), INTENT(INOUT) :: tke_tend
 
-    REAL    ,DIMENSION(ims:ime,jms:jme), INTENT(INOUT) :: mu_tendf
+!   REAL    ,DIMENSION(ims:ime,jms:jme), INTENT(INOUT) :: mu_tendf
 
     INTEGER , INTENT(IN)                          ::  k_start, k_end
 
@@ -318,7 +319,7 @@ BENCH_START(cal_phy_tend)
 
         CALL wrf_debug ( 200 , ' call calculate_phy_tend' )
         CALL calculate_phy_tend (config_flags,grid%c1h,grid%c2h,       &
-                     grid%mut,grid%muu,grid%muv,pi_phy,                &
+                     grid%mut,grid%muu,grid%muv,grid%pi_phy,           &
                      grid%rthraten,                                    &
                      grid%rublten,grid%rvblten,grid%rthblten,          &
                      grid%rqvblten,grid%rqcblten,grid%rqiblten,        &
@@ -505,8 +506,8 @@ BENCH_START(calc_tke_tim)
                                  grid%khdif,grid%kvdif,grid%div,                        &
                                  grid%defor11,grid%defor22,grid%defor33,grid%defor12,   &
                                  grid%defor13,grid%defor23,                             &
-                                 grid%tke_2,p8w,t8w,th_phy,                             &
-                                 t_phy,p_phy,moist,grid%dn,grid%dnw,                    &
+                                 grid%tke_2,grid%p8w,grid%t8w,grid%th_phy,              &
+                                 grid%t_phy,grid%p_phy,moist,grid%dn,grid%dnw,          &
                                  grid%dx,grid%dy,grid%rdz,grid%rdzw,                    &
                                  config_flags%mix_isotropic,num_moist,                  &
                                  grid%cf1, grid%cf2, grid%cf3, grid%warm_rain,          &
@@ -678,8 +679,9 @@ BENCH_START(update_phy_ten_tim)
            ENDDO
          ENDIF
 #endif
-         CALL update_phy_ten(ph_tendf,t_tendf, ru_tendf, rv_tendf,moist_tend ,&
-                           scalar_tend, mu_tendf,                           &
+         CALL update_phy_ten(grid%ph_tendf,grid%t_tendf, grid%ru_tendf,     &
+                           grid%rv_tendf,moist_tend,                        &
+                           scalar_tend, grid%mu_tendf,                           &
                            grid%rthraten,grid%rthblten,grid%rthcuten,grid%rthshten, &
                            grid%rublten,grid%rucuten,grid%rushten,          &
                            grid%rvblten,grid%rvcuten,grid%rvshten,          &
@@ -712,7 +714,8 @@ BENCH_END(update_phy_ten_tim)
           !$OMP PRIVATE ( ij )
           DO ij = 1 , grid%num_tiles
                CALL wrf_debug ( 200 , ' call update_stoch_ten' )
-                CALL update_stoch_ten(ru_tendf, rv_tendf, t_tendf,&
+                CALL update_stoch_ten(grid%ru_tendf, grid%rv_tendf,          &
+                               grid%t_tendf,                                 &
                                grid%ru_tendf_stoch,                          &
                                grid%rv_tendf_stoch,                          &
                                grid%rt_tendf_stoch,                          &
@@ -735,7 +738,8 @@ BENCH_END(update_phy_ten_tim)
           DO ij = 1 , grid%num_tiles
                  call perturb_physics_tend(grid%gridpt_stddev_sppt,          &
                         grid%stddev_cutoff_sppt,grid%rstoch,                 &
-                        ru_tendf,rv_tendf,t_tendf,moist_tend(ims,kms,jms,2), &
+                        grid%ru_tendf,grid%rv_tendf,grid%t_tendf,            &
+                        moist_tend(ims,kms,jms,2), &
                         ids, ide, jds, jde, kds, kde,                        &
                         ims, ime, jms, jme, kms, kme,                        &
                         grid%i_start(ij), grid%i_end(ij),                    &
@@ -765,8 +769,9 @@ to see if perturbation of moist potential temperature is OK.
          DO ij = 1 , grid%num_tiles
            CALL damptop( grid%u_2, grid%v_2, grid%t_2, &
                          grid%mut, grid%muu, grid%muv, &
-                         pi_phy,                                &
-                         t_tendf, ru_tendf, rv_tendf, P2SI,     &
+                         grid%pi_phy,                                &
+                         grid%t_tendf,                          &
+                         grid%ru_tendf, grid%rv_tendf, P2SI,    &
                          ids, ide, jds, jde, kds, kde,          &
                          ims, ime, jms, jme, kms, kme,          &
                          grid%i_start(ij), grid%i_end(ij),      &
@@ -784,13 +789,14 @@ BENCH_START(tke_rhs_tim)
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
 
-           CALL tke_rhs  ( tke_tend,grid%bn2,                           &
+           CALL tke_rhs  ( grid%tke_tend,grid%bn2,                    &
                          config_flags,grid%defor11,grid%defor22,      &
                          grid%defor33,                                &
                          grid%defor12,grid%defor13,grid%defor23,      &
                          grid%u_2,grid%v_2,grid%w_2,grid%div,         &
                          grid%tke_2,grid%mut,grid%c1h,grid%c2h,       &
-                         th_phy,p_phy,p8w,t8w,grid%z,grid%fnm,        & 
+                         grid%th_phy,grid%p_phy,grid%p8w,grid%t8w,    &
+                         grid%z,grid%fnm,                             & 
                          grid%fnp,grid%cf1,grid%cf2,grid%cf3,         &     
                          grid%msftx,grid%msfty,grid%xkmh,             &
                          grid%xkmv,grid%xkhv,grid%rdx,grid%rdy,       &
@@ -857,12 +863,12 @@ BENCH_END(tke_rhs_tim)
                    grid%dx, grid%KPBL,grid%HT,                          &
                    grid%mut, grid%muu, grid%muv, grid%c1h, grid%c2h,    &
                    grid%msftx, grid%msfty, grid%msfux, grid%msfuy, grid%msfvx, grid%msfvy, &
-                   p_phy, t_tendf, t0,                                  &
+                   grid%p_phy, grid%t_tendf, t0,                             &
                    grid%u_2, grid%v_2, grid%th_phy_m_t0,                &
                    moist(ims,kms,jms,P_QV),                             &
                    grid%pb, grid%p_top, grid%p, grid%phb, grid%ph_2,    &
                    grid%uratx, grid%vratx, grid%tratx,                  &
-                   ru_tendf, rv_tendf,                                  &
+                   grid%ru_tendf, grid%rv_tendf,                        &
                    moist_tend(ims,kms,jms,P_QV), grid%obs_savwt,        &
                    grid%regime, grid%pblh, grid%z_at_w, grid%z,         &
                    ids,ide, jds,jde, kds,kde,                           &
@@ -880,7 +886,7 @@ BENCH_END(tke_rhs_tim)
          !$OMP PRIVATE ( ij )
          DO ij = 1 , grid%num_tiles
            CALL conv_t_tendf_to_moist ( grid%t_1 , moist_old(ims,kms,jms,P_qv) ,  &
-                                        t_tendf  , moist_tend(ims,kms,jms,P_qv) , &
+                                        grid%t_tendf  , moist_tend(ims,kms,jms,P_qv) , &
                                         ids, ide, jds, jde, kds, kde ,            &
                                         ims, ime, jms, jme, kms, kme ,            &
                                         grid%i_start(ij), grid%i_end(ij),         &
@@ -903,8 +909,9 @@ BENCH_START(vert_diff_tim)
            DO ij = 1 , grid%num_tiles
 
              CALL wrf_debug ( 200 , ' call vertical_diffusion_2 ' )
-             CALL vertical_diffusion_2( ru_tendf, rv_tendf, rw_tendf,            &
-                                      t_tendf, tke_tend,                         &
+             CALL vertical_diffusion_2( grid%ru_tendf, grid%rv_tendf,            &
+                                      grid%rw_tendf,                             &
+                                      grid%t_tendf, grid%tke_tend,               &
                                       moist_tend, num_moist,                      &
                                       chem_tend, num_chem,                       &
                                       scalar_tend, num_scalar,                     &
@@ -936,13 +943,13 @@ BENCH_START(hor_diff_tim)
          DO ij = 1 , grid%num_tiles
 
            CALL wrf_debug ( 200 , ' call horizontal_diffusion_2' )
-           CALL horizontal_diffusion_2( t_tendf, ru_tendf, rv_tendf, rw_tendf, &
-                                      tke_tend,                              &
+           CALL horizontal_diffusion_2( grid%t_tendf, grid%ru_tendf, grid%rv_tendf, grid%rw_tendf, &
+                                      grid%tke_tend,                              &
                                       moist_tend, num_moist,                  &
                                       chem_tend, num_chem,                   &
                                       scalar_tend, num_scalar,                 &
                                       tracer_tend, num_tracer,                 &
-                                      grid%t_2, th_phy,                           &
+                                      grid%t_2, grid%th_phy,                   &
                                       grid%tke_2, config_flags,              &
                                       grid%defor11, grid%defor22, grid%defor12,             &
                                       grid%defor13, grid%defor23,   &

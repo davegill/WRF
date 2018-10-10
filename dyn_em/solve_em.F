@@ -731,17 +731,18 @@ BENCH_START(calc_p_rho_tim)
                              , scalar , scalar_tend             &
                              , fdda3d, fdda2d                   &
                              , aerod                            &
-                             , ru_tendf, rv_tendf               &
-                             , rw_tendf, t_tendf                &
-                             , ph_tendf, mu_tendf               &
-                             , tke_tend                         &
+!                            , ru_tendf, rv_tendf               &
+!                            , rw_tendf, t_tendf                &
+!                            , ph_tendf, mu_tendf               &
+!                            , tke_tend                         &
                              , config_flags%use_adaptive_time_step &
                              , curr_secs                        &
                              , psim , psih , gz1oz0             &
                              , chklowq                          &
-                             , cu_act_flag , hol , th_phy       &
-                             , pi_phy , p_phy , grid%t_phy      &
-                             , dz8w , p8w , t8w                 &
+                             , cu_act_flag , hol                &
+!                            , grid%th_phy 
+!                            , pi_phy , p_phy , grid%t_phy      &
+!                            , dz8w , p8w , t8w                 &
                              , ids, ide, jds, jde, kds, kde     &
                              , ims, ime, jms, jme, kms, kme     &
                              , ips, ipe, jps, jpe, kps, kpe     &
@@ -767,16 +768,17 @@ BENCH_START(calc_p_rho_tim)
                              , tracer, tracer_tend              &
                              , scalar , scalar_tend             &
                              , fdda3d, fdda2d                   &
-                             , ru_tendf, rv_tendf               &
-                             , rw_tendf, t_tendf                &
-                             , ph_tendf, mu_tendf               &
-                             , tke_tend                         &
+!                            , ru_tendf, rv_tendf               &
+!                            , rw_tendf, t_tendf                &
+!                            , ph_tendf, mu_tendf               &
+!                            , tke_tend                         &
                              , adapt_step_flag , curr_secs      &
                              , psim , psih , gz1oz0             &
                              , chklowq                          &
-                             , cu_act_flag , hol , th_phy       &
-                             , pi_phy , p_phy , grid%t_phy      &
-                             , dz8w , p8w , t8w                 &
+                             , cu_act_flag , hol                &
+!                            , th_phy                           &
+!                            , pi_phy , p_phy , grid%t_phy      &
+!                            , dz8w , p8w , t8w                 &
                              , nba_mij, num_nba_mij             & !JDM 
                              , nba_rij, num_nba_rij             & !JDM  
                              , ids, ide, jds, jde, kds, kde     &
@@ -799,7 +801,7 @@ BENCH_START(rk_tend_tim)
        CALL wrf_debug ( 200 , ' call rk_tendency' )
        CALL rk_tendency ( config_flags, rk_step                                                                &
                          ,grid%ru_tend, grid%rv_tend, rw_tend, ph_tend, t_tend                                 &
-                         ,ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf                                      &
+                         ,grid%ru_tendf, grid%rv_tendf, grid%rw_tendf, grid%ph_tendf, grid%t_tendf             &
                          ,mu_tend, grid%u_save, grid%v_save, w_save, ph_save                                   &
                          ,grid%t_save, mu_save, grid%rthften                                                   &
                          ,grid%ru, grid%rv, grid%rw, grid%ww                                                   &
@@ -884,9 +886,10 @@ BENCH_START(relax_bdy_dry_tim)
        ENDIF
 
        CALL rk_addtend_dry( grid%ru_tend,  grid%rv_tend,  rw_tend,  ph_tend,  t_tend,  &
-                            ru_tendf, rv_tendf, rw_tendf, ph_tendf, t_tendf, &
+                            grid%ru_tendf, grid%rv_tendf, grid%rw_tendf,     &
+                            grid%ph_tendf, grid%t_tendf,                     &
                             grid%u_save, grid%v_save, w_save, ph_save, grid%t_save, &
-                            mu_tend, mu_tendf, rk_step,                      &
+                            mu_tend, grid%mu_tendf, rk_step,                 &
                             grid%c1h, grid%c2h,                              &
                             grid%h_diabatic, grid%mut, grid%msftx,           &
                             grid%msfty, grid%msfux,grid%msfuy,               &
@@ -2030,7 +2033,7 @@ BENCH_END(small_step_finish_tim)
            CALL wrf_debug ( 200 , ' call rk_update_scalar_pd' )
            CALL rk_update_scalar_pd( 1, 1,                                    &
                                      grid%tke_1,                              &
-                                     tke_tend(ims,kms,jms),                   &
+                                     grid%tke_tend,                           &
                                      grid%c1h, grid%c2h,                      &
                                      grid%mu_1, grid%mu_1, grid%mub,          &
                                      rk_step, dt_rk, grid%spec_zone,          &
@@ -2307,7 +2310,7 @@ BENCH_START(tke_adv_tim)
                             grid%alt,                                              &
                             grid%tke_1,                                            &
                             grid%tke_2,                                            &
-                            tke_tend(ims,kms,jms),                                 &
+                            grid%tke_tend,                                         &
                             advect_tend,h_tendency,z_tendency,grid%rqvften,        & 
                             grid%qv_base, .false., grid%fnm, grid%fnp,             &
                             grid%msfux,grid%msfuy, grid%msfvx, grid%msfvx_inv,     &
@@ -2337,7 +2340,7 @@ BENCH_START(tke_adv_tim)
            CALL rk_update_scalar( scs=1,  sce=1,                                          &
                                   scalar_1=grid%tke_1,                                    &
                                   scalar_2=grid%tke_2,                                    &
-                                  sc_tend=tke_tend(ims,kms,jms),                          &
+                                  sc_tend=grid%tke_tend,                                  &
                                   advect_tend=advect_tend,                                &
                                   h_tendency=h_tendency, z_tendency=z_tendency,           & 
                                   msftx=grid%msftx,msfty=grid%msfty,                      &
@@ -3487,7 +3490,7 @@ BENCH_END(advance_ppt_tim)
                         grid%rthften,  grid%rqvften,                     &
                         grid%RUNDGDTEN, grid%RVNDGDTEN, grid%RTHNDGDTEN, &
                         grid%RPHNDGDTEN,grid%RQVNDGDTEN, grid%RMUNDGDTEN,&
-                        grid%t_2, th_phy, moist(ims,kms,jms,P_QV),       &
+                        grid%t_2, grid%th_phy, moist(ims,kms,jms,P_QV),  &
                         ids, ide, jds, jde, kds, kde,                    &
                         ims, ime, jms, jme, kms, kme,                    &
                         grid%i_start(ij), grid%i_end(ij),                &
@@ -3536,9 +3539,11 @@ BENCH_END(advance_ppt_tim)
        CALL wrf_debug ( 200 , ' call moist_physics_prep' )
 BENCH_START(moist_physics_prep_tim)
        CALL moist_physics_prep_em( grid%t_2, grid%t_1, t0, grid%rho,           &
-                                   grid%al, grid%alb, grid%p, p8w, p0, grid%pb,          &
-                                   grid%ph_2, grid%phb, th_phy, pi_phy , p_phy, &
-                                   grid%z, grid%z_at_w, dz8w,        &
+                                   grid%al, grid%alb, grid%p, grid%p8w,        &
+                                   p0, grid%pb,                                &
+                                   grid%ph_2, grid%phb, grid%th_phy,           &
+                                   grid%pi_phy , grid%p_phy,                   &
+                                   grid%z, grid%z_at_w, grid%dz8w,             &
                                    dtm, grid%h_diabatic,                       &
                                    moist(ims,kms,jms,P_QV),grid%qv_diabatic,   &
                                    moist(ims,kms,jms,P_QC),grid%qc_diabatic,   &
@@ -3552,7 +3557,7 @@ BENCH_START(moist_physics_prep_tim)
          CALL wrf_debug ( 200 , ' call bulk_dust_emis' )
          CALL bulk_dust_emis (grid%itimestep,dtm,config_flags%num_soil_layers  &
                ,grid%u_phy,grid%v_phy,grid%rho,grid%alt                        &
-               ,grid%u10,grid%v10,p8w,dz8w,grid%smois,grid%erod                &
+               ,grid%u10,grid%v10,grid%p8w,grid%dz8w,grid%smois,grid%erod      &
                ,grid%ivgtyp,grid%isltyp,grid%vegfra,grid%albbck,grid%xland     &
                ,grid%dx, g, grid%qnifa2d, ids,ide, jds,jde, kds,kde            &
                ,ims,ime, jms,jme, kms,kme                                      &
@@ -3596,11 +3601,11 @@ BENCH_START(micro_driver_tim)
 
      CALL microphysics_driver(                                            &
       &         DT=dtm             ,DX=grid%dx              ,DY=grid%dy   &
-      &        ,DZ8W=dz8w          ,F_ICE_PHY=grid%f_ice_phy              &
+      &        ,DZ8W=grid%dz8w     ,F_ICE_PHY=grid%f_ice_phy              &
       &        ,ITIMESTEP=grid%itimestep                    ,LOWLYR=grid%lowlyr  &
-      &        ,P8W=p8w            ,P=p_phy            ,PI_PHY=pi_phy     &
+      &        ,P8W=grid%p8w       ,P=grid%p_phy     ,PI_PHY=grid%pi_phy  &
       &        ,RHO=grid%rho       ,SPEC_ZONE=grid%spec_zone              &
-      &        ,SR=grid%sr              ,TH=th_phy                        &
+      &        ,SR=grid%sr              ,TH=grid%th_phy                   &
       &        ,refl_10cm=grid%refl_10cm                                  & ! hm, 9/22/09 for refl
       &        ,vmi3d=grid%vmi3d                                          & ! for P3
       &        ,di3d=grid%di3d                                            & ! for P3
@@ -3609,7 +3614,7 @@ BENCH_START(micro_driver_tim)
       &        ,di3d_2=grid%di3d_2                                        & ! for P3
       &        ,rhopo3d_2=grid%rhopo3d_2                                  & ! for P3
       &        ,WARM_RAIN=grid%warm_rain                                  &
-      &        ,T8W=t8w                                                   &
+      &        ,T8W=grid%t8w                                                   &
       &        ,CLDFRA=grid%cldfra, EXCH_H=grid%exch_h &
       &        ,NSOURCE=grid%qndropsource                                 &
 #if (WRF_CHEM == 1)
@@ -3853,7 +3858,8 @@ BENCH_START(moist_phys_end_tim)
                       its, ite, jts, jte,                               &
                       k_start    , k_end                                )
 
-       CALL moist_physics_finish_em( grid%t_2, grid%t_1, t0, grid%muts, th_phy,  &
+       CALL moist_physics_finish_em( grid%t_2, grid%t_1, t0, grid%muts,          &
+                                     grid%th_phy,                                &
                                      grid%h_diabatic, dtm,                       &
                                      moist(ims,kms,jms,P_QV),grid%qv_diabatic,   &
                                      moist(ims,kms,jms,P_QC),grid%qc_diabatic,   &
@@ -4524,8 +4530,9 @@ BENCH_END(bc_2d_tim)
 
   CALL after_all_rk_steps ( grid, config_flags,                  &
                             moist, chem, tracer, scalar,         &
-                            th_phy, pi_phy, p_phy, rho_phy,      &   
-                            p8w, t8w, dz8w,                      &
+                            grid%th_phy, grid%pi_phy, grid%p_phy,&
+                            rho_phy,                             &   
+                            grid%p8w, grid%t8w, grid%dz8w,       &
                             REAL(curr_secs,8), curr_secs2,       &
                             diag_flag,                           &
                             ids,  ide,  jds,  jde,  kds,  kde,   &
