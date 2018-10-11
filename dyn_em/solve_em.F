@@ -737,9 +737,9 @@ BENCH_START(calc_p_rho_tim)
 !                            , tke_tend                         &
                              , config_flags%use_adaptive_time_step &
                              , curr_secs                        &
-                             , psim , psih , gz1oz0             &
-                             , chklowq                          &
-                             , cu_act_flag , hol                &
+!                            , psim , psih , gz1oz0             &
+!                            , chklowq                          &
+!                            , cu_act_flag , hol                &
 !                            , grid%th_phy 
 !                            , pi_phy , p_phy , grid%t_phy      &
 !                            , dz8w , p8w , t8w                 &
@@ -773,9 +773,9 @@ BENCH_START(calc_p_rho_tim)
 !                            , ph_tendf, mu_tendf               &
 !                            , tke_tend                         &
                              , adapt_step_flag , curr_secs      &
-                             , psim , psih , gz1oz0             &
-                             , chklowq                          &
-                             , cu_act_flag , hol                &
+!                            , psim , psih , gz1oz0             &
+!                            , chklowq                          &
+!                            , cu_act_flag , hol                &
 !                            , th_phy                           &
 !                            , pi_phy , p_phy , grid%t_phy      &
 !                            , dz8w , p8w , t8w                 &

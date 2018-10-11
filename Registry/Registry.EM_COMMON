@@ -895,12 +895,12 @@ state    real   IMPERV           ij     misc        1         -      i012rhd=(in
 state    real   CANFRA           ij     misc        1         -      i012rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)      "CANFRA"       "Satellite canopy fraction"         "percent"
 
 # sfclay PBL variables
-i1      real   PSIM           ij     misc        1         -     -         "PSIM"                "SIMILARITY FUNCTION FOR MOMENTUM"     ""
-i1      real   PSIH           ij     misc        1         -     -         "PSIH"                "SIMILARITY FUNCTION FOR HEAT"         ""
+state   real   PSIM           ij     misc        1         -     -         "PSIM"                "SIMILARITY FUNCTION FOR MOMENTUM"     ""
+state   real   PSIH           ij     misc        1         -     -         "PSIH"                "SIMILARITY FUNCTION FOR HEAT"         ""
 state   real   FM             ij     misc        1         -     -         "FM"                  "INTEGRATED FUNCTION FOR MOMENTUM"     ""
 state   real   FH             ij     misc        1         -     -         "FH"                  "INTEGRATED FUNCTION FOR HEAT"         ""
 state   real   WSPD           ij     misc        1         -     -         "WSPD"                "Wind Speed At Lowest Model Level (may contain vconv)"           "m s-1"
-i1      real   GZ1OZ0         ij     misc        1         -     -         "GZ1OZ0"              "LOG OF Z1 over Z0"                     ""
+state   real   GZ1OZ0         ij     misc        1         -     -         "GZ1OZ0"              "LOG OF Z1 over Z0"                     ""
 state   real   BR             ij     misc        1         -     -         "BR"                  "Bulk Richardson"                       ""
 state   real   ZOL            ij     misc        1         -     -         "ZOL"                 "z/L"                                   ""
 
@@ -930,7 +930,7 @@ state   real   QSHLTR           ij     misc        1         -      r        "QS
 state   real   PSHLTR           ij     misc        1         -      r        "PSHLTR"                "SHELTER PRESSURE FROM MYJ"           "Pa"
 state   real   TH10             ij     misc        1         -      r        "TH10"                  "10-M THETA FROM MYJ"                          "K"
 state   real   Q10              ij     misc        1         -      r        "Q10"                   "10-M SPECIFIC HUMIDITY FROM MYJ"              "kg kg-1"
-i1      real   CHKLOWQ          ij     misc        1         -     -         "CHKLOWQ"               "SURFACE SATURATION FLAG"        ""
+state   real   CHKLOWQ          ij     misc        1         -     -         "CHKLOWQ"               "SURFACE SATURATION FLAG"        ""
 
 # MF_SHCONV variables
 state   real   massflux_EDKF   ikj     misc        1         -      -        "MASS_FLUX"             "MASS FLUX FROM EDKF"              "Kg m s-1"
@@ -1659,7 +1659,7 @@ state    real  dz8w            ikj      misc        1         Z      -      "DZ8
 state    real  p8w             ikj      misc        1         Z      -      "P8W"                          "Pressure, full levels"  "Pa"
 state    real  t8w             ikj      misc        1         Z      -      "T8W"                          "Temperature, full levels"  "K"
 i1       real  rho_phy         ikj      misc        1         -
-i1    logical  CU_ACT_FLAG     ij       misc        1         -
+state logical  CU_ACT_FLAG     ij       misc        1         -      -      "CU_ACT_FLAG"                  "Some great mystery"   "unknown"
 
 
 state    real  TMN              ij      misc        1         -     i012rhd=(interp_mask_field:lu_index,iswater)u=(copy_fcnm)     "TMN"   "SOIL TEMPERATURE AT LOWER BOUNDARY"           "K"
@@ -1678,7 +1678,7 @@ state    real  CD               ij      misc        1         -      r        "C
 state    real  CDA              ij      misc        1         -      r        "CDA"                   "DRAG COEFF AT LOWEST MODEL LVL"         ""
 state    real  UST              ij      misc        1         -      rh       "UST"                   "U* IN SIMILARITY THEORY"                      "m s-1"
 state    real  USTM             ij      misc        1         -      r        "USTM"                  "U* IN SIMILARITY THEORY WITHOUT VCONV"        "m s-1"
-i1       real  HOL              ij      misc        1         -      -        "HOL"                   "PBL HEIGHT OVER MONIN-OBUKHOV LENGTH"         ""
+state    real  HOL              ij      misc        1         -      -        "HOL"                   "PBL HEIGHT OVER MONIN-OBUKHOV LENGTH"         ""
 state    real  RMOL             ij      misc        1         -      r        "RMOL"                  "1./Monin Ob. Length"                      ""
 state    real  MOL              ij      misc        1         -      r        "MOL"                   "T* IN SIMILARITY THEORY"                      "K"
 state    real  PBLH             ij      misc        1         -      rh       "PBLH"                  "PBL HEIGHT"         "m"
