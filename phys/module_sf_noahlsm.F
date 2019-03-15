@@ -431,7 +431,6 @@ FLX4= ieee_value(1., ieee_signaling_nan)
 FVB= ieee_value(1., ieee_signaling_nan)
 FBUR= ieee_value(1., ieee_signaling_nan)
 FGSN= ieee_value(1., ieee_signaling_nan)
-
       ILOC = IILOC
       JLOC = JJLOC
 
@@ -1050,7 +1049,6 @@ if ((ieee_is_nan(FGSN))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FGSN
 endif
 
-
 ! ----------------------------------------------------------------------
   END SUBROUTINE SFLX
 ! ----------------------------------------------------------------------
@@ -1340,7 +1338,6 @@ if ((ieee_is_nan(RCT))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCT
 endif
 
-
 ! ----------------------------------------------------------------------
   END SUBROUTINE CANRES
 ! ----------------------------------------------------------------------
@@ -1359,7 +1356,6 @@ endif
       REAL             :: C
       REAL, PARAMETER  :: UNIT = 0.11631
 SNCOND= ieee_value(1., ieee_signaling_nan)
-
 
 ! ----------------------------------------------------------------------
 ! SNCOND IN UNITS OF CAL/(CM*HR*C), RETURNED IN W/(M*C)
@@ -2223,7 +2219,6 @@ RUNOFF2= ieee_value(1., ieee_signaling_nan)
 RUNOFF3= ieee_value(1., ieee_signaling_nan)
 SSOIL= ieee_value(1., ieee_signaling_nan)
 ET= ieee_value(1., ieee_signaling_nan)
-
       EDIR = 0.
       EDIR1 = 0.
       EC1 = 0.
@@ -2476,7 +2471,6 @@ endif
 if (any(ieee_is_nan(ET))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ET
 endif
-
 ! ----------------------------------------------------------------------
   END SUBROUTINE NOPAC
 ! ----------------------------------------------------------------------
@@ -2629,7 +2623,6 @@ endif
 if ((ieee_is_nan(ETPN))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',ETPN
 endif
-
 ! ----------------------------------------------------------------------
   END SUBROUTINE PENMAN
 ! ----------------------------------------------------------------------
@@ -3024,7 +3017,6 @@ if (any(ieee_is_nan(RTDIS))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RTDIS
 endif
 
-
       END  SUBROUTINE REDPRM
 
       SUBROUTINE ROSR12 (P,A,B,C,D,DELTA,NSOIL)
@@ -3209,7 +3201,6 @@ DRIP= ieee_value(1., ieee_signaling_nan)
 RUNOFF1= ieee_value(1., ieee_signaling_nan)
 RUNOFF2= ieee_value(1., ieee_signaling_nan)
 RUNOFF3= ieee_value(1., ieee_signaling_nan)
-
       DUMMY = 0.
 
 ! ----------------------------------------------------------------------
@@ -3647,7 +3638,6 @@ RUNOFF3= ieee_value(1., ieee_signaling_nan)
 SSOIL= ieee_value(1., ieee_signaling_nan)
 SNOMLT= ieee_value(1., ieee_signaling_nan)
 ET= ieee_value(1., ieee_signaling_nan)
-
       DEW = 0.
       EDIR = 0.
       EDIR1 = 0.
@@ -3999,7 +3989,6 @@ if (any(ieee_is_nan(ET))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ET
 endif
 
-
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNOPAC
 ! ----------------------------------------------------------------------
@@ -4164,7 +4153,6 @@ endif
       REAL, PARAMETER         :: Z0G=0.01  ! UA: soil roughness
       REAL                    :: FV,A1,A2
 Z0= ieee_value(1., ieee_signaling_nan)
-
 
       IF(UA_PHYS) THEN
 
@@ -4744,8 +4732,7 @@ TBND1= ieee_value(1., ieee_signaling_nan)
 ! LINEAR INTERPOLATION BETWEEN THE AVERAGE LAYER TEMPERATURES
 ! ----------------------------------------------------------------------
 
-      TBND1 = TU + (TB - TU)* (ZUP - ZSOIL (K))/ (ZUP - ZB)
- 
+      TBND1 = TU + (TB - TU)* (ZUP - ZSOIL (K))/ (ZUP - ZB) 
 if ((ieee_is_nan(TBND1))) then
    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tbnd, var = ',TBND1
 endif
