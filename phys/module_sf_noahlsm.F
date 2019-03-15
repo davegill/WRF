@@ -1145,7 +1145,6 @@ endif
 ! ----------------------------------------------------------------------
 ALBEDO= ieee_value(1., ieee_signaling_nan)
 EMISSI= ieee_value(1., ieee_signaling_nan)
-
          SNOALB1 = SNOALB+LVCOEF*(0.85-SNOALB)
          SNOALB2=SNOALB1
 ! ---------------- Initial LSTSNW --------------------------------------
