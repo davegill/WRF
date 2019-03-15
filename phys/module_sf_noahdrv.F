@@ -1785,7 +1785,6 @@ endif
         MMINSL='STAS'
 !
 
-
 ! initialize three Noah LSM related tables
    IF ( allowed_to_read ) THEN
      CALL wrf_message( 'INITIALIZE THREE Noah LSM RELATED TABLES' )
@@ -1908,7 +1907,6 @@ endif
  110      CONTINUE
 
    ENDIF
-
 !------------------------------------------------------------------------------
   END SUBROUTINE lsminit
 !------------------------------------------------------------------------------
