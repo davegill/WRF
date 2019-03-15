@@ -1,4 +1,5 @@
 MODULE module_sf_noahdrv
+use, intrinsic :: ieee_arithmetic, only : ieee_signaling_nan, ieee_is_nan, ieee_value
 
 !-------------------------------
   USE module_sf_noahlsm,  only: SFLX, XLF, XLV, CP, R_D, RHOWATER, NATURAL, SHDTBL, LUTYPE, SLTYPE, STBOLT, &
@@ -667,6 +668,13 @@ CONTAINS
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
+SMCREL= ieee_value(1., ieee_signaling_nan)
+NOAHRES= ieee_value(1., ieee_signaling_nan)
+FLX4_2D= ieee_value(1., ieee_signaling_nan)
+FVB_2D= ieee_value(1., ieee_signaling_nan)
+FBUR_2D= ieee_value(1., ieee_signaling_nan)
+FGSN_2D= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ= ieee_value(1., ieee_signaling_nan)
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -1690,6 +1698,27 @@ CONTAINS
 
 
        endif                                                           !Bep end
+if (any(ieee_is_nan(SMCREL))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',SMCREL
+endif
+if (any(ieee_is_nan(NOAHRES))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',NOAHRES
+endif
+if (any(ieee_is_nan(FLX4_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FLX4_2D
+endif
+if (any(ieee_is_nan(FVB_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FVB_2D
+endif
+if (any(ieee_is_nan(FBUR_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FBUR_2D
+endif
+if (any(ieee_is_nan(FGSN_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FGSN_2D
+endif
+if (any(ieee_is_nan(CHKLOWQ))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',CHKLOWQ
+endif
 
 !------------------------------------------------------
    END SUBROUTINE lsm
@@ -1755,6 +1784,7 @@ CONTAINS
    character*256 :: MMINSL
         MMINSL='STAS'
 !
+
 
 ! initialize three Noah LSM related tables
    IF ( allowed_to_read ) THEN
@@ -1878,6 +1908,7 @@ CONTAINS
  110      CONTINUE
 
    ENDIF
+
 !------------------------------------------------------------------------------
   END SUBROUTINE lsminit
 !------------------------------------------------------------------------------
@@ -2911,6 +2942,13 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
+SMCREL= ieee_value(1., ieee_signaling_nan)
+NOAHRES= ieee_value(1., ieee_signaling_nan)
+FLX4_2D= ieee_value(1., ieee_signaling_nan)
+FVB_2D= ieee_value(1., ieee_signaling_nan)
+FBUR_2D= ieee_value(1., ieee_signaling_nan)
+FGSN_2D= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ= ieee_value(1., ieee_signaling_nan)
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -4688,6 +4726,27 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
 
       ENDDO ILOOP                                                       ! of I loop
    ENDDO JLOOP                                                          ! of J loop   
+if (any(ieee_is_nan(SMCREL))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',SMCREL
+endif
+if (any(ieee_is_nan(NOAHRES))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',NOAHRES
+endif
+if (any(ieee_is_nan(FLX4_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FLX4_2D
+endif
+if (any(ieee_is_nan(FVB_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FVB_2D
+endif
+if (any(ieee_is_nan(FBUR_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FBUR_2D
+endif
+if (any(ieee_is_nan(FGSN_2D))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FGSN_2D
+endif
+if (any(ieee_is_nan(CHKLOWQ))) then
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',CHKLOWQ
+endif
        
 !------------------------------------------------------
    END SUBROUTINE lsm_mosaic

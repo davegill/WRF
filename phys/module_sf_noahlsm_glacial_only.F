@@ -1,4 +1,5 @@
 MODULE module_sf_noahlsm_glacial_only
+use, intrinsic :: ieee_arithmetic, only : ieee_signaling_nan, ieee_is_nan, ieee_value
   USE module_model_constants
   USE module_sf_noahlsm, ONLY : RD, SIGMA, CPH2O, CPICE, LSUBF, EMISSI_S, ROSR12
   USE module_sf_noahlsm, ONLY : LVCOEF_DATA
@@ -191,6 +192,8 @@ CONTAINS
     REAL, PARAMETER :: LVH2O = 2.501E+6
     REAL, PARAMETER :: LSUBS = 2.83E+6
     REAL, PARAMETER :: R = 287.04
+EMBRD= ieee_value(1., ieee_signaling_nan)
+ALBEDO= ieee_value(1., ieee_signaling_nan)
 
 ! ----------------------------------------------------------------------
     iloc = iiloc
@@ -395,7 +398,12 @@ CONTAINS
 ! RUNOFF (RUNOFF1) SINCE THERE IS NO SOIL MEDIUM
 ! ----------------------------------------------------------------------
     RUNOFF1 = SNOMLT / DT
-
+if ((ieee_is_nan(EMBRD))) then
+   print *,'NAN: file = module_sf_noahlsm_glacial_only.F, sub = subroutine sflx_glacial, var = ',EMBRD
+endif
+if ((ieee_is_nan(ALBEDO))) then
+   print *,'NAN: file = module_sf_noahlsm_glacial_only.F, sub = subroutine sflx_glacial, var = ',ALBEDO
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SFLX_GLACIAL
 ! ----------------------------------------------------------------------

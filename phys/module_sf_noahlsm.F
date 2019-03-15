@@ -1,4 +1,5 @@
 MODULE module_sf_noahlsm
+use, intrinsic :: ieee_arithmetic, only : ieee_signaling_nan, ieee_is_nan, ieee_value
 #if defined(mpas)
 use mpas_atmphys_constants,only: CP=>cp,R_D=>R_d,XLF=>xlf,XLV=>xlv,RHOWATER=>rho_w,STBOLT=>stbolt,KARMAN=>karman
 use mpas_atmphys_utilities, only: physics_error_fatal
@@ -388,6 +389,49 @@ CONTAINS
 ! ----------------------------------------------------------------------
 !   INITIALIZATION
 ! ----------------------------------------------------------------------
+!dave NROOT= ieee_value(1., ieee_signaling_nan)
+EMBRD= ieee_value(1., ieee_signaling_nan)
+ALBEDO= ieee_value(1., ieee_signaling_nan)
+ET= ieee_value(1., ieee_signaling_nan)
+SMAV= ieee_value(1., ieee_signaling_nan)
+ETA_KINEMATIC= ieee_value(1., ieee_signaling_nan)
+BETA= ieee_value(1., ieee_signaling_nan)
+DEW= ieee_value(1., ieee_signaling_nan)
+DRIP= ieee_value(1., ieee_signaling_nan)
+EC= ieee_value(1., ieee_signaling_nan)
+EDIR= ieee_value(1., ieee_signaling_nan)
+ESNOW= ieee_value(1., ieee_signaling_nan)
+ETA= ieee_value(1., ieee_signaling_nan)
+ETP= ieee_value(1., ieee_signaling_nan)
+FLX1= ieee_value(1., ieee_signaling_nan)
+FLX2= ieee_value(1., ieee_signaling_nan)
+FLX3= ieee_value(1., ieee_signaling_nan)
+SHEAT= ieee_value(1., ieee_signaling_nan)
+PC= ieee_value(1., ieee_signaling_nan)
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+RC= ieee_value(1., ieee_signaling_nan)
+RSMIN= ieee_value(1., ieee_signaling_nan)
+RCQ= ieee_value(1., ieee_signaling_nan)
+RCS= ieee_value(1., ieee_signaling_nan)
+RCSOIL= ieee_value(1., ieee_signaling_nan)
+RCT= ieee_value(1., ieee_signaling_nan)
+SSOIL= ieee_value(1., ieee_signaling_nan)
+SMCDRY= ieee_value(1., ieee_signaling_nan)
+SMCMAX= ieee_value(1., ieee_signaling_nan)
+SMCREF= ieee_value(1., ieee_signaling_nan)
+SMCWLT= ieee_value(1., ieee_signaling_nan)
+SNOMLT= ieee_value(1., ieee_signaling_nan)
+SOILM= ieee_value(1., ieee_signaling_nan)
+SOILW= ieee_value(1., ieee_signaling_nan)
+FDOWN= ieee_value(1., ieee_signaling_nan)
+Q1= ieee_value(1., ieee_signaling_nan)
+FLX4= ieee_value(1., ieee_signaling_nan)
+FVB= ieee_value(1., ieee_signaling_nan)
+FBUR= ieee_value(1., ieee_signaling_nan)
+FGSN= ieee_value(1., ieee_signaling_nan)
+
       ILOC = IILOC
       JLOC = JJLOC
 
@@ -879,6 +923,133 @@ CONTAINS
          ELSE
            SOILW = SOILWW / SOILWM
          END IF
+!dave if ((ieee_is_nan(NROOT))) then
+!dave   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',NROOT
+!dave endif
+if ((ieee_is_nan(EMBRD))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EMBRD
+endif
+if ((ieee_is_nan(ALBEDO))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ALBEDO
+endif
+if (any(ieee_is_nan(ET))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ET
+endif
+if (any(ieee_is_nan(SMAV))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMAV
+endif
+if ((ieee_is_nan(ETA_KINEMATIC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETA_KINEMATIC
+endif
+if ((ieee_is_nan(BETA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',BETA
+endif
+if ((ieee_is_nan(DEW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',DEW
+endif
+if ((ieee_is_nan(DRIP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',DRIP
+endif
+if ((ieee_is_nan(EC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EC
+endif
+if ((ieee_is_nan(EDIR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EDIR
+endif
+if ((ieee_is_nan(ESNOW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ESNOW
+endif
+if ((ieee_is_nan(ETA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETA
+endif
+if ((ieee_is_nan(ETP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETP
+endif
+if ((ieee_is_nan(FLX1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX1
+endif
+if ((ieee_is_nan(FLX2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX2
+endif
+if ((ieee_is_nan(FLX3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX3
+endif
+if ((ieee_is_nan(SHEAT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SHEAT
+endif
+if ((ieee_is_nan(PC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',PC
+endif
+if ((ieee_is_nan(RUNOFF1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF1
+endif
+if ((ieee_is_nan(RUNOFF2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF2
+endif
+if ((ieee_is_nan(RUNOFF3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF3
+endif
+if ((ieee_is_nan(RC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RC
+endif
+if ((ieee_is_nan(RSMIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RSMIN
+endif
+if ((ieee_is_nan(RCQ))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCQ
+endif
+if ((ieee_is_nan(RCS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCS
+endif
+if ((ieee_is_nan(RCSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCSOIL
+endif
+if ((ieee_is_nan(RCT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCT
+endif
+if ((ieee_is_nan(SSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SSOIL
+endif
+if ((ieee_is_nan(SMCDRY))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCDRY
+endif
+if ((ieee_is_nan(SMCMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCMAX
+endif
+if ((ieee_is_nan(SMCREF))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCREF
+endif
+if ((ieee_is_nan(SMCWLT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCWLT
+endif
+if ((ieee_is_nan(SNOMLT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SNOMLT
+endif
+if ((ieee_is_nan(SOILM))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SOILM
+endif
+if ((ieee_is_nan(SOILW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SOILW
+endif
+if ((ieee_is_nan(FDOWN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FDOWN
+endif
+if ((ieee_is_nan(Q1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',Q1
+endif
+if ((ieee_is_nan(FLX4))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX4
+endif
+if ((ieee_is_nan(FVB))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FVB
+endif
+if ((ieee_is_nan(FBUR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FBUR
+endif
+if ((ieee_is_nan(FGSN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FGSN
+endif
+
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE SFLX
@@ -972,6 +1143,9 @@ CONTAINS
 ! IS INDEED ACCUMULATION SEASON. I.E. THAT SNOW SURFACE TEMP IS BELOW
 ! ZERO AND THE DATE FALLS BETWEEN OCTOBER AND FEBRUARY
 ! ----------------------------------------------------------------------
+ALBEDO= ieee_value(1., ieee_signaling_nan)
+EMISSI= ieee_value(1., ieee_signaling_nan)
+
          SNOALB1 = SNOALB+LVCOEF*(0.85-SNOALB)
          SNOALB2=SNOALB1
 ! ---------------- Initial LSTSNW --------------------------------------
@@ -997,6 +1171,12 @@ CONTAINS
 !          ENDIF
 
 !      IF (ALBEDO > SNOALB) ALBEDO = SNOALB
+if ((ieee_is_nan(ALBEDO))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = ',ALBEDO
+endif
+if ((ieee_is_nan(EMISSI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = ',EMISSI
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE ALCALC
@@ -1055,6 +1235,12 @@ CONTAINS
       REAL, DIMENSION(1:NSOIL) ::  PART
       REAL, PARAMETER     :: SLV = 2.501000E6
 
+PC= ieee_value(1., ieee_signaling_nan)
+RC= ieee_value(1., ieee_signaling_nan)
+RCQ= ieee_value(1., ieee_signaling_nan)
+RCS= ieee_value(1., ieee_signaling_nan)
+RCSOIL= ieee_value(1., ieee_signaling_nan)
+RCT= ieee_value(1., ieee_signaling_nan)
 
 ! ----------------------------------------------------------------------
 ! INITIALIZE CANOPY RESISTANCE MULTIPLIER TERMS.
@@ -1136,6 +1322,25 @@ CONTAINS
       DELTA = (SLV / CP)* DQSDT2
 
       PC = (RR + DELTA)/ (RR * (1. + RC * CH) + DELTA)
+if ((ieee_is_nan(PC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',PC
+endif
+if ((ieee_is_nan(RC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RC
+endif
+if ((ieee_is_nan(RCQ))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCQ
+endif
+if ((ieee_is_nan(RCS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCS
+endif
+if ((ieee_is_nan(RCSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCSOIL
+endif
+if ((ieee_is_nan(RCT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCT
+endif
+
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE CANRES
@@ -1154,6 +1359,8 @@ CONTAINS
       REAL, INTENT(OUT):: SNCOND
       REAL             :: C
       REAL, PARAMETER  :: UNIT = 0.11631
+SNCOND= ieee_value(1., ieee_signaling_nan)
+
 
 ! ----------------------------------------------------------------------
 ! SNCOND IN UNITS OF CAL/(CM*HR*C), RETURNED IN W/(M*C)
@@ -1178,6 +1385,9 @@ CONTAINS
 !      SNCOND = UNIT * C
 ! double snow thermal conductivity
       SNCOND = 2.0 * UNIT * C
+if ((ieee_is_nan(SNCOND))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine csnow, var = ',SNCOND
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE CSNOW
@@ -1243,6 +1453,7 @@ CONTAINS
       REAL, INTENT(IN   ) :: DT
        REAL             :: EDIRTMP
 
+EDIR= ieee_value(1., ieee_signaling_nan)
 
 
 ! ----------------------------------------------------------------------
@@ -1308,6 +1519,9 @@ CONTAINS
 !DJG NDHMS/WRF-Hydro edits...
 !       EDIR = FX * ( 1.0- SHDFAC ) * ETP1
        EDIR = FX * EDIRTMP
+if ((ieee_is_nan(EDIR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine devap_hydro, var = ',EDIR
+endif
 
 
 
@@ -1413,6 +1627,7 @@ CONTAINS
 ! ----------------------------------------------------------------------
       ETA1 = EDIR + ETT + EC
 
+
 ! ----------------------------------------------------------------------
   END SUBROUTINE EVAPO
 ! ----------------------------------------------------------------------
@@ -1421,6 +1636,7 @@ CONTAINS
     IMPLICIT NONE		
     REAL, INTENT(IN)  :: SMCMAX
     REAL, INTENT(OUT) :: FLIMIT
+FLIMIT= ieee_value(1., ieee_signaling_nan)
 
     FLIMIT = 0.90
 
@@ -1435,6 +1651,9 @@ CONTAINS
     ELSE IF ( ( SMCMAX == 0.200 ) .OR. ( SMCMAX == 0.464 ) ) THEN
        FLIMIT = 0.80
     ENDIF
+if ((ieee_is_nan(FLIMIT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine evapo, var = ',FLIMIT
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE FAC2MIT
@@ -1480,6 +1699,7 @@ CONTAINS
       REAL, PARAMETER      :: CK = 8.0, BLIM = 5.5, ERROR = 0.005,       &
                               HLICE = 3.335E5, GS = 9.81,DICE = 920.0,   &
                               DH2O = 1000.0, T0 = 273.15
+FREE= ieee_value(1., ieee_signaling_nan)
 
 ! ----------------------------------------------------------------------
 ! LIMITS ON PARAMETER B: B < 5.5  (use parameter BLIM)
@@ -1577,6 +1797,9 @@ CONTAINS
 ! ----------------------------------------------------------------------
          END IF
       END IF
+if ((ieee_is_nan(FREE))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine frh2o, var = ',FREE
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE FRH2O
 ! ----------------------------------------------------------------------
@@ -1619,6 +1842,10 @@ CONTAINS
 !
 ! END FASDAS
 !
+RHSTS= ieee_value(1., ieee_signaling_nan)
+AI= ieee_value(1., ieee_signaling_nan)
+BI= ieee_value(1., ieee_signaling_nan)
+CI= ieee_value(1., ieee_signaling_nan)
 
 !urban
         IF( VEGTYP == ISURBAN ) then
@@ -1842,6 +2069,18 @@ CONTAINS
          DTSDZ = DTSDZ2
          DDZ = DDZ2
       END DO
+if (any(ieee_is_nan(RHSTS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',RHSTS
+endif
+if (any(ieee_is_nan(AI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',AI
+endif
+if (any(ieee_is_nan(BI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',BI
+endif
+if (any(ieee_is_nan(CI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',CI
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE HRT
 ! ----------------------------------------------------------------------
@@ -1864,6 +2103,7 @@ CONTAINS
       REAL, DIMENSION(1:NSOIL) :: RHSTSin
       REAL, DIMENSION(1:NSOIL) :: CIin
       REAL                 :: DT
+STCOUT= ieee_value(1., ieee_signaling_nan)
 
 ! ----------------------------------------------------------------------
 ! CREATE FINITE DIFFERENCE VALUES FOR USE IN ROSR12 ROUTINE
@@ -1894,6 +2134,9 @@ CONTAINS
          STCOUT (K) = STCIN (K) + CI (K)
       END DO
 ! ----------------------------------------------------------------------
+if (any(ieee_is_nan(STCOUT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hstep, var = ',STCOUT
+endif
   END SUBROUTINE HSTEP
 ! ----------------------------------------------------------------------
 
@@ -1969,6 +2212,20 @@ CONTAINS
 !
 ! END FASDAS
 !
+DEW= ieee_value(1., ieee_signaling_nan)
+DRIP= ieee_value(1., ieee_signaling_nan)
+EC= ieee_value(1., ieee_signaling_nan)
+EDIR= ieee_value(1., ieee_signaling_nan)
+ETA= ieee_value(1., ieee_signaling_nan)
+ETT= ieee_value(1., ieee_signaling_nan)
+FLX1= ieee_value(1., ieee_signaling_nan)
+FLX3= ieee_value(1., ieee_signaling_nan)
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+SSOIL= ieee_value(1., ieee_signaling_nan)
+ET= ieee_value(1., ieee_signaling_nan)
+
       EDIR = 0.
       EDIR1 = 0.
       EC1 = 0.
@@ -2182,6 +2439,46 @@ CONTAINS
       FLX1 = CPH2O * PRCP * (T1- SFCTMP)
       FLX3 = 0.0
 
+if ((ieee_is_nan(DEW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',DEW
+endif
+if ((ieee_is_nan(DRIP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',DRIP
+endif
+if ((ieee_is_nan(EC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',EC
+endif
+if ((ieee_is_nan(EDIR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',EDIR
+endif
+if ((ieee_is_nan(ETA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ETA
+endif
+if ((ieee_is_nan(ETT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ETT
+endif
+if ((ieee_is_nan(FLX1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',FLX1
+endif
+if ((ieee_is_nan(FLX3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',FLX3
+endif
+if ((ieee_is_nan(RUNOFF1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF1
+endif
+if ((ieee_is_nan(RUNOFF2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF2
+endif
+if ((ieee_is_nan(RUNOFF3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF3
+endif
+if ((ieee_is_nan(SSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',SSOIL
+endif
+if (any(ieee_is_nan(ET))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ET
+endif
+
 ! ----------------------------------------------------------------------
   END SUBROUTINE NOPAC
 ! ----------------------------------------------------------------------
@@ -2222,6 +2519,14 @@ CONTAINS
 ! ----------------------------------------------------------------------
 ! PREPARE PARTIAL QUANTITIES FOR PENMAN EQUATION.
 ! ----------------------------------------------------------------------
+EPSCA= ieee_value(1., ieee_signaling_nan)
+ETP= ieee_value(1., ieee_signaling_nan)
+FLX2= ieee_value(1., ieee_signaling_nan)
+RCH= ieee_value(1., ieee_signaling_nan)
+RR= ieee_value(1., ieee_signaling_nan)
+T24= ieee_value(1., ieee_signaling_nan)
+FLX4= ieee_value(1., ieee_signaling_nan)
+ETPN= ieee_value(1., ieee_signaling_nan)
         EMISSI=EMISSI_IN
         ELCP1  = (1.0-SNCOVR)*ELCP  + SNCOVR*ELCP*LSUBS/LSUBC
         LVS    = (1.0-SNCOVR)*LSUBC + SNCOVR*LSUBS
@@ -2302,6 +2607,31 @@ CONTAINS
         EPSCAN = (A * RR + RADN * DELTA) / (DELTA + RR)
         ETPN = EPSCAN * RCH / LVS
       END IF
+if ((ieee_is_nan(EPSCA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',EPSCA
+endif
+if ((ieee_is_nan(ETP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',ETP
+endif
+if ((ieee_is_nan(FLX2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',FLX2
+endif
+if ((ieee_is_nan(RCH))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',RCH
+endif
+if ((ieee_is_nan(RR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',RR
+endif
+if ((ieee_is_nan(T24))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',T24
+endif
+if ((ieee_is_nan(FLX4))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',FLX4
+endif
+if ((ieee_is_nan(ETPN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',ETPN
+endif
+
 ! ----------------------------------------------------------------------
   END SUBROUTINE PENMAN
 ! ----------------------------------------------------------------------
@@ -2421,7 +2751,50 @@ CONTAINS
       REAL,DIMENSION(1:NSOIL),INTENT(OUT):: RTDIS
       REAL                   :: FRZFACT,FRZK,REFDK
 
+
 !      SAVE
+!dave NROOT= ieee_value(1, ieee_signaling_nan)
+HS= ieee_value(1., ieee_signaling_nan)
+RSMIN= ieee_value(1., ieee_signaling_nan)
+RGL= ieee_value(1., ieee_signaling_nan)
+SNUP= ieee_value(1., ieee_signaling_nan)
+CMCMAX= ieee_value(1., ieee_signaling_nan)
+RSMAX= ieee_value(1., ieee_signaling_nan)
+TOPT= ieee_value(1., ieee_signaling_nan)
+EMISSMIN= ieee_value(1., ieee_signaling_nan)
+EMISSMAX= ieee_value(1., ieee_signaling_nan)
+LAIMIN= ieee_value(1., ieee_signaling_nan)
+LAIMAX= ieee_value(1., ieee_signaling_nan)
+Z0MIN= ieee_value(1., ieee_signaling_nan)
+Z0MAX= ieee_value(1., ieee_signaling_nan)
+ALBEDOMIN= ieee_value(1., ieee_signaling_nan)
+ALBEDOMAX= ieee_value(1., ieee_signaling_nan)
+ZTOPV= ieee_value(1., ieee_signaling_nan)
+ZBOTV= ieee_value(1., ieee_signaling_nan)
+BEXP= ieee_value(1., ieee_signaling_nan)
+DKSAT= ieee_value(1., ieee_signaling_nan)
+DWSAT= ieee_value(1., ieee_signaling_nan)
+F1= ieee_value(1., ieee_signaling_nan)
+QUARTZ= ieee_value(1., ieee_signaling_nan)
+SMCDRY= ieee_value(1., ieee_signaling_nan)
+SMCMAX= ieee_value(1., ieee_signaling_nan)
+SMCREF= ieee_value(1., ieee_signaling_nan)
+SMCWLT= ieee_value(1., ieee_signaling_nan)
+PSISAT= ieee_value(1., ieee_signaling_nan)
+SLOPE= ieee_value(1., ieee_signaling_nan)
+CZIL= ieee_value(1., ieee_signaling_nan)
+SBETA= ieee_value(1., ieee_signaling_nan)
+FXEXP= ieee_value(1., ieee_signaling_nan)
+CSOIL= ieee_value(1., ieee_signaling_nan)
+SALP= ieee_value(1., ieee_signaling_nan)
+FRZX= ieee_value(1., ieee_signaling_nan)
+KDT= ieee_value(1., ieee_signaling_nan)
+CFACTR= ieee_value(1., ieee_signaling_nan)
+ZBOT= ieee_value(1., ieee_signaling_nan)
+REFKDT= ieee_value(1., ieee_signaling_nan)
+PTU= ieee_value(1., ieee_signaling_nan)
+LVCOEF= ieee_value(1., ieee_signaling_nan)
+RTDIS= ieee_value(1., ieee_signaling_nan)
 ! ----------------------------------------------------------------------
 !
                IF (SOILTYP .gt. SLCATS) THEN
@@ -2525,6 +2898,134 @@ CONTAINS
 !    &  'NSOIL',NSOIL,'Z0',Z0,'CZIL',CZIL,'LAI',LAI,                     &
 !    &  'CSOIL',CSOIL,'PTU',PTU,                                         &
 !    &  'LOCAL', LOCAL
+!dave
+!dave if ((ieee_is_nan(NROOT))) then
+!dave    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',NROOT
+!dave endif
+if ((ieee_is_nan(HS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',HS
+endif
+if ((ieee_is_nan(RSMIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RSMIN
+endif
+if ((ieee_is_nan(RGL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RGL
+endif
+if ((ieee_is_nan(SNUP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SNUP
+endif
+if ((ieee_is_nan(CMCMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CMCMAX
+endif
+if ((ieee_is_nan(RSMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RSMAX
+endif
+if ((ieee_is_nan(TOPT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',TOPT
+endif
+if ((ieee_is_nan(EMISSMIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',EMISSMIN
+endif
+if ((ieee_is_nan(EMISSMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',EMISSMAX
+endif
+if ((ieee_is_nan(LAIMIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LAIMIN
+endif
+if ((ieee_is_nan(LAIMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LAIMAX
+endif
+if ((ieee_is_nan(Z0MIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',Z0MIN
+endif
+if ((ieee_is_nan(Z0MAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',Z0MAX
+endif
+if ((ieee_is_nan(ALBEDOMIN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ALBEDOMIN
+endif
+if ((ieee_is_nan(ALBEDOMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ALBEDOMAX
+endif
+if ((ieee_is_nan(ZTOPV))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZTOPV
+endif
+if ((ieee_is_nan(ZBOTV))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZBOTV
+endif
+if ((ieee_is_nan(BEXP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',BEXP
+endif
+if ((ieee_is_nan(DKSAT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',DKSAT
+endif
+if ((ieee_is_nan(DWSAT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',DWSAT
+endif
+if ((ieee_is_nan(F1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',F1
+endif
+if ((ieee_is_nan(QUARTZ))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',QUARTZ
+endif
+if ((ieee_is_nan(SMCDRY))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCDRY
+endif
+if ((ieee_is_nan(SMCMAX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCMAX
+endif
+if ((ieee_is_nan(SMCREF))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCREF
+endif
+if ((ieee_is_nan(SMCWLT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCWLT
+endif
+if ((ieee_is_nan(PSISAT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',PSISAT
+endif
+if ((ieee_is_nan(SLOPE))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SLOPE
+endif
+if ((ieee_is_nan(CZIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CZIL
+endif
+if ((ieee_is_nan(SBETA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SBETA
+endif
+if ((ieee_is_nan(FXEXP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',FXEXP
+endif
+if ((ieee_is_nan(CSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CSOIL
+endif
+if ((ieee_is_nan(SALP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SALP
+endif
+if ((ieee_is_nan(FRZX))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',FRZX
+endif
+if ((ieee_is_nan(KDT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',KDT
+endif
+if ((ieee_is_nan(CFACTR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CFACTR
+endif
+if ((ieee_is_nan(ZBOT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZBOT
+endif
+if ((ieee_is_nan(REFKDT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',REFKDT
+endif
+if ((ieee_is_nan(PTU))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',PTU
+endif
+if ((ieee_is_nan(LVCOEF))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LVCOEF
+endif
+if (any(ieee_is_nan(RTDIS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RTDIS
+endif
+
 
       END  SUBROUTINE REDPRM
 
@@ -2653,8 +3154,12 @@ CONTAINS
 ! ----------------------------------------------------------------------
 ! CALCULATE SURFACE SOIL HEAT FLUX
 ! ----------------------------------------------------------------------
+SSOIL= ieee_value(1., ieee_signaling_nan)
       T1 = (YY + (ZZ1- 1.0) * STC (1)) / ZZ1
       SSOIL = DF1 * (STC (1) - T1) / (0.5 * ZSOIL (1))
+if ((ieee_is_nan(SSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine shflx, var = ',SSOIL
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE SHFLX
@@ -2702,6 +3207,11 @@ CONTAINS
 ! ----------------------------------------------------------------------
 ! COMPUTE THE RIGHT HAND SIDE OF THE CANOPY EQN TERM ( RHSCT )
 ! ----------------------------------------------------------------------
+DRIP= ieee_value(1., ieee_signaling_nan)
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+
       DUMMY = 0.
 
 ! ----------------------------------------------------------------------
@@ -2797,6 +3307,18 @@ CONTAINS
 !      RUNOF = RUNOFF
 
       END IF
+if ((ieee_is_nan(DRIP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',DRIP
+endif
+if ((ieee_is_nan(RUNOFF1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF1
+endif
+if ((ieee_is_nan(RUNOFF2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF2
+endif
+if ((ieee_is_nan(RUNOFF3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF3
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE SMFLX
@@ -2837,6 +3359,11 @@ CONTAINS
 ! SNUP IS VEG-CLASS DEPENDENT SNOWDEPTH THRESHHOLD (SET IN ROUTINE
 ! REDPRM) ABOVE WHICH SNOCVR=1.
 ! ----------------------------------------------------------------------
+SNCOVR= ieee_value(1., ieee_signaling_nan)
+FVB= ieee_value(1., ieee_signaling_nan)
+GAMA= ieee_value(1., ieee_signaling_nan)
+FBUR= ieee_value(1., ieee_signaling_nan)
+FGSN= ieee_value(1., ieee_signaling_nan)
       IF (SNEQV < SNUP) THEN
          RSNOW = SNEQV / SNUP
          SNCOVR = 1. - ( EXP ( - SALP * RSNOW) - RSNOW * EXP ( - SALP))
@@ -2904,6 +3431,21 @@ CONTAINS
         FGSN = 0.0
       END IF    ! UA_PHYS
 
+if ((ieee_is_nan(SNCOVR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',SNCOVR
+endif
+if ((ieee_is_nan(FVB))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FVB
+endif
+if ((ieee_is_nan(GAMA))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',GAMA
+endif
+if ((ieee_is_nan(FBUR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FBUR
+endif
+if ((ieee_is_nan(FGSN))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FGSN
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNFRAC
 ! ----------------------------------------------------------------------
@@ -3092,6 +3634,22 @@ CONTAINS
 ! ETP1 [M S-1]
 ! ETP2 [M]
 ! ----------------------------------------------------------------------
+DEW= ieee_value(1., ieee_signaling_nan)
+DRIP= ieee_value(1., ieee_signaling_nan)
+EC= ieee_value(1., ieee_signaling_nan)
+EDIR= ieee_value(1., ieee_signaling_nan)
+ETNS= ieee_value(1., ieee_signaling_nan)
+ESNOW= ieee_value(1., ieee_signaling_nan)
+ETT= ieee_value(1., ieee_signaling_nan)
+FLX1= ieee_value(1., ieee_signaling_nan)
+FLX3= ieee_value(1., ieee_signaling_nan)
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+SSOIL= ieee_value(1., ieee_signaling_nan)
+SNOMLT= ieee_value(1., ieee_signaling_nan)
+ET= ieee_value(1., ieee_signaling_nan)
+
       DEW = 0.
       EDIR = 0.
       EDIR1 = 0.
@@ -3397,6 +3955,52 @@ CONTAINS
          SNCOND = 1.
          SNCOVR = 0.
       END IF
+if ((ieee_is_nan(DEW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',DEW
+endif
+if ((ieee_is_nan(DRIP))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',DRIP
+endif
+if ((ieee_is_nan(EC))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',EC
+endif
+if ((ieee_is_nan(EDIR))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',EDIR
+endif
+if ((ieee_is_nan(ETNS))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ETNS
+endif
+if ((ieee_is_nan(ESNOW))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ESNOW
+endif
+if ((ieee_is_nan(ETT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ETT
+endif
+if ((ieee_is_nan(FLX1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',FLX1
+endif
+if ((ieee_is_nan(FLX3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',FLX3
+endif
+if ((ieee_is_nan(RUNOFF1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF1
+endif
+if ((ieee_is_nan(RUNOFF2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF2
+endif
+if ((ieee_is_nan(RUNOFF3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF3
+endif
+if ((ieee_is_nan(SSOIL))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',SSOIL
+endif
+if ((ieee_is_nan(SNOMLT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',SNOMLT
+endif
+if (any(ieee_is_nan(ET))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ET
+endif
+
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNOPAC
@@ -3561,6 +4165,8 @@ CONTAINS
       REAL, INTENT(IN)        :: SHDMAX    ! UA: maximum vegetation fraction
       REAL, PARAMETER         :: Z0G=0.01  ! UA: soil roughness
       REAL                    :: FV,A1,A2
+Z0= ieee_value(1., ieee_signaling_nan)
+
 
       IF(UA_PHYS) THEN
 
@@ -3582,6 +4188,9 @@ CONTAINS
           Z0 = (1.- SNCOVR)* Z0BRD + SNCOVR * Z0EFF
 
       ENDIF
+if ((ieee_is_nan(Z0))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snowz0, var = ',Z0
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNOWZ0
 ! ----------------------------------------------------------------------
@@ -3696,6 +4305,12 @@ CONTAINS
 ! LET SICEMAX BE THE GREATEST, IF ANY, FROZEN WATER CONTENT WITHIN SOIL
 ! LAYERS.
 ! ----------------------------------------------------------------------
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RHSTT= ieee_value(1., ieee_signaling_nan)
+AI= ieee_value(1., ieee_signaling_nan)
+BI= ieee_value(1., ieee_signaling_nan)
+CI= ieee_value(1., ieee_signaling_nan)
       IOHINF = 1
       SICEMAX = 0.0
       DO KS = 1,NSOIL
@@ -3932,6 +4547,24 @@ CONTAINS
             DDZ = DDZ2
          END IF
       END DO
+if ((ieee_is_nan(RUNOFF1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RUNOFF1
+endif
+if ((ieee_is_nan(RUNOFF2))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RUNOFF2
+endif
+if (any(ieee_is_nan(RHSTT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RHSTT
+endif
+if (any(ieee_is_nan(AI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',AI
+endif
+if (any(ieee_is_nan(BI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',BI
+endif
+if (any(ieee_is_nan(CI))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',CI
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SRT
 ! ----------------------------------------------------------------------
@@ -3969,6 +4602,8 @@ CONTAINS
 ! CREATE 'AMOUNT' VALUES OF VARIABLES TO BE INPUT TO THE
 ! TRI-DIAGONAL MATRIX ROUTINE.
 ! ----------------------------------------------------------------------
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+SH2OOUT= ieee_value(1., ieee_signaling_nan)
       DO K = 1,NSOIL
          RHSTT (K) = RHSTT (K) * DT
          AI (K) = AI (K) * DT
@@ -4061,6 +4696,12 @@ CONTAINS
       CMC = CMC + DT * RHSCT
       IF (CMC < 1.E-20) CMC = 0.0
       CMC = MIN (CMC,CMCMAX)
+if ((ieee_is_nan(RUNOFF3))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = ',RUNOFF3
+endif
+if (any(ieee_is_nan(SH2OOUT))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = ',SH2OOUT
+endif
 
 ! ----------------------------------------------------------------------
   END SUBROUTINE SSTEP
@@ -4086,6 +4727,7 @@ CONTAINS
 ! ----------------------------------------------------------------------
 ! USE SURFACE TEMPERATURE ON THE TOP OF THE FIRST LAYER
 ! ----------------------------------------------------------------------
+TBND1= ieee_value(1., ieee_signaling_nan)
      IF (K == 1) THEN
          ZUP = 0.
       ELSE
@@ -4105,6 +4747,10 @@ CONTAINS
 ! ----------------------------------------------------------------------
 
       TBND1 = TU + (TB - TU)* (ZUP - ZSOIL (K))/ (ZUP - ZB)
+ 
+if ((ieee_is_nan(TBND1))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tbnd, var = ',TBND1
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE TBND
 ! ----------------------------------------------------------------------
@@ -4201,6 +4847,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! KERSTEN NUMBER (USING "FINE" FORMULA, VALID FOR SOILS CONTAINING AT
 ! LEAST 5% OF PARTICLES WITH DIAMETER LESS THAN 2.E-6 METERS.)
 ! (FOR "COARSE" FORMULA, SEE PETERS-LIDARD ET AL., 1998).
+DF= ieee_value(1., ieee_signaling_nan)
 
          IF ( SATRATIO >  0.1 ) THEN
 
@@ -4232,6 +4879,9 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
          END IF
 
     ENDIF  ! for OPT_THCND OPTIONS             
+if ((ieee_is_nan(DF))) then
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tdfcnd, var = ',DF
+endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE TDFCND
 ! ----------------------------------------------------------------------
