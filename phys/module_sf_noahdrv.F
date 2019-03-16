@@ -668,13 +668,13 @@ CONTAINS
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
-SMCREL= ieee_value(1., ieee_signaling_nan)
-NOAHRES= ieee_value(1., ieee_signaling_nan)
-FLX4_2D= ieee_value(1., ieee_signaling_nan)
-FVB_2D= ieee_value(1., ieee_signaling_nan)
-FBUR_2D= ieee_value(1., ieee_signaling_nan)
-FGSN_2D= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ= ieee_value(1., ieee_signaling_nan)
+SMCREL(its:ite-1,:,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+NOAHRES(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FLX4_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FVB_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FBUR_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FGSN_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -1036,6 +1036,7 @@ CHKLOWQ= ieee_value(1., ieee_signaling_nan)
 !
 !  END FASDAS
 !
+print *,'DAVE i,j = ',i,j
        CALL SFLX (I,J,FFROZP, ISURBAN, DT,ZLVL,NSOIL,SLDPTH,       &    !C
                  LOCAL,                                            &    !L
                  LUTYPE, SLTYPE,                                   &    !CL
@@ -1699,25 +1700,25 @@ CHKLOWQ= ieee_value(1., ieee_signaling_nan)
 
        endif                                                           !Bep end
 if (any(ieee_is_nan(SMCREL))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',SMCREL
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = SMCREL ',SMCREL
 endif
 if (any(ieee_is_nan(NOAHRES))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',NOAHRES
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = NOAHRES ',NOAHRES
 endif
 if (any(ieee_is_nan(FLX4_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FLX4_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FLX4_2D ',FLX4_2D
 endif
 if (any(ieee_is_nan(FVB_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FVB_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FVB_2D ',FVB_2D
 endif
 if (any(ieee_is_nan(FBUR_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FBUR_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FBUR_2D ',FBUR_2D
 endif
 if (any(ieee_is_nan(FGSN_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',FGSN_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FGSN_2D ',FGSN_2D
 endif
 if (any(ieee_is_nan(CHKLOWQ))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = ',CHKLOWQ
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = CHKLOWQ ',CHKLOWQ
 endif
 
 !------------------------------------------------------
@@ -1781,14 +1782,16 @@ endif
    INTEGER                   :: errflag
    CHARACTER(LEN=80)         :: err_message
 
-   character*256 :: MMINSL
-        MMINSL='STAS'
+   character(LEN=256) :: MMINSL
+        MMINSL=' '
+        MMINSL(1:4)='STAS'
 !
 
+print *,'DAVE in naoh drv, lsminit, before SOIL_VEG_GEN_PARM'
 ! initialize three Noah LSM related tables
    IF ( allowed_to_read ) THEN
      CALL wrf_message( 'INITIALIZE THREE Noah LSM RELATED TABLES' )
-     CALL  SOIL_VEG_GEN_PARM( MMINLU, MMINSL )
+     CALL  SOIL_VEG_GEN_PARM( TRIM(MMINLU), TRIM(MMINSL) )
    ENDIF
 
 ! GAC-->
@@ -1804,11 +1807,13 @@ endif
 !#endif
 ! <--GAC
 
+print *,'DAVE in naoh drv, lsminit, before not restart'
    IF(.not.restart)THEN
 
    itf=min0(ite,ide-1)
    jtf=min0(jte,jde-1)
 
+print *,'DAVE in naoh drv, lsminit, before maxalb(ivgtytp)'
    errflag = 0
    DO j = jts,jtf
      DO i = its,itf
@@ -1832,6 +1837,7 @@ endif
 #endif
    ENDIF
 
+print *,'DAVE in naoh drv, lsminit, before smcmax'
 ! initialize soil liquid water content SH2O
 
 !  IF(.NOT.FNDSOILW) THEN
@@ -1841,33 +1847,48 @@ endif
         DO J = jts,jtf
         DO I = its,itf
           BX = BB(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'bx = ',bx
           SMCMAX = MAXSMC(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'smcmax = ',smcmax
           PSISAT = SATPSI(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'psisat = ',psisat
          if ((bx > 0.0).and.(smcmax > 0.0).and.(psisat > 0.0)) then
+if(i.eq.17 .and. j.eq.26) print *,'in the IF'
           DO NS=1, num_soil_layers
+if(i.eq.17 .and. j.eq.26) print *,'ns = ',ns,num_soil_layers
 ! ----------------------------------------------------------------------
 !SH2O  <= SMOIS for T < 273.149K (-0.001C)
              IF (TSLB(I,NS,J) < 273.149) THEN
+if(i.eq.17 .and. j.eq.26) print *,'tslb cold'
 ! ----------------------------------------------------------------------
 ! first guess following explicit solution for Flerchinger Eqn from Koren
 ! et al, JGR, 1999, Eqn 17 (KCOUNT=0 in FUNCTION FRH2O).
 ! ISLTPK is soil type
               BX = BB(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'bx 2 = ',bx
               SMCMAX = MAXSMC(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'smcmax 2 = ',smcmax
               PSISAT = SATPSI(ISLTYP(I,J))
+if(i.eq.17 .and. j.eq.26) print *,'psisat 2 = ',psisat
               IF ( BX >  BLIM ) BX = BLIM
+if(i.eq.17 .and. j.eq.26) print *,'bx 3 = ',bx
               FK=(( (HLICE/(GRAV*(-PSISAT))) *                              &
                  ((TSLB(I,NS,J)-T0)/TSLB(I,NS,J)) )**(-1/BX) )*SMCMAX
+if(i.eq.17 .and. j.eq.26) print *,'fk = ',fk
               IF (FK < 0.02) FK = 0.02
               SH2O(I,NS,J) = MIN( FK, SMOIS(I,NS,J) )
 ! ----------------------------------------------------------------------
 ! now use iterative solution for liquid soil water content using
 ! FUNCTION FRH2O with the initial guess for SH2O from above explicit
 ! first guess.
+if(i.eq.17 .and. j.eq.26) print *,'before call to frh2o'
               CALL FRH2O (FREE,TSLB(I,NS,J),SMOIS(I,NS,J),SH2O(I,NS,J),    &
                  SMCMAX,BX,PSISAT)
+if(i.eq.17 .and. j.eq.26) print *,'after call to frh2o'
               SH2O(I,NS,J) = FREE
+if(i.eq.17 .and. j.eq.26) print *,'after free assignment'
              ELSE             ! of IF (TSLB(I,NS,J)
+if(i.eq.17 .and. j.eq.26) print *,'tslb warm'
 ! ----------------------------------------------------------------------
 ! SH2O = SMOIS ( for T => 273.149K (-0.001C)
               SH2O(I,NS,J)=SMOIS(I,NS,J)
@@ -1875,6 +1896,7 @@ endif
              ENDIF            ! of IF (TSLB(I,NS,J)
           END DO              ! of DO NS=1, num_soil_layers
          else                 ! of if ((bx > 0.0)
+if(i.eq.17 .and. j.eq.26) print *,'in the ELSE'
           DO NS=1, num_soil_layers
            SH2O(I,NS,J)=SMOIS(I,NS,J)
           END DO
@@ -1884,6 +1906,7 @@ endif
 !  ENDIF                       ! of IF(.NOT.FNDSOILW)THEN
 
 ! initialize physical snow height SNOWH
+print *,'DAVE in naoh drv, lsminit, before physical snow'
 
         IF(.NOT.FNDSNOWH)THEN
 ! If no SNOWH do the following
@@ -1897,6 +1920,7 @@ endif
 
 ! initialize canopy water to ZERO
 
+print *,'DAVE in naoh drv, lsminit, before canwat=0'
 !          GO TO 110
 !         print*,'Note that canopy water content (CANWAT) is set to ZERO in LSMINIT'
           DO J = jts,jtf
@@ -2940,13 +2964,14 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
-SMCREL= ieee_value(1., ieee_signaling_nan)
-NOAHRES= ieee_value(1., ieee_signaling_nan)
-FLX4_2D= ieee_value(1., ieee_signaling_nan)
-FVB_2D= ieee_value(1., ieee_signaling_nan)
-FBUR_2D= ieee_value(1., ieee_signaling_nan)
-FGSN_2D= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ= ieee_value(1., ieee_signaling_nan)
+
+SMCREL(its:ite-1,:,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+NOAHRES(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FLX4_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FVB_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FBUR_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+FGSN_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -4725,25 +4750,25 @@ CHKLOWQ= ieee_value(1., ieee_signaling_nan)
       ENDDO ILOOP                                                       ! of I loop
    ENDDO JLOOP                                                          ! of J loop   
 if (any(ieee_is_nan(SMCREL))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',SMCREL
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = SMCREL ',SMCREL
 endif
 if (any(ieee_is_nan(NOAHRES))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',NOAHRES
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = NOAHRES ',NOAHRES
 endif
 if (any(ieee_is_nan(FLX4_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FLX4_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = FLX4_2D ',FLX4_2D
 endif
 if (any(ieee_is_nan(FVB_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FVB_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = FVB_2D ',FVB_2D
 endif
 if (any(ieee_is_nan(FBUR_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FBUR_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = FBUR_2D ',FBUR_2D
 endif
 if (any(ieee_is_nan(FGSN_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',FGSN_2D
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = FGSN_2D ',FGSN_2D
 endif
 if (any(ieee_is_nan(CHKLOWQ))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = ',CHKLOWQ
+   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsminit, var = CHKLOWQ ',CHKLOWQ
 endif
        
 !------------------------------------------------------

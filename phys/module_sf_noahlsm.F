@@ -926,127 +926,127 @@ FGSN= ieee_value(1., ieee_signaling_nan)
 !dave   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',NROOT
 !dave endif
 if ((ieee_is_nan(EMBRD))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EMBRD
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = EMBRD ',EMBRD
 endif
 if ((ieee_is_nan(ALBEDO))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ALBEDO
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ALBEDO ',ALBEDO
 endif
 if (any(ieee_is_nan(ET))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ET
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ET ',ET
 endif
 if (any(ieee_is_nan(SMAV))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMAV
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SMAV ',SMAV
 endif
 if ((ieee_is_nan(ETA_KINEMATIC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETA_KINEMATIC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ETA_KINEMATIC ',ETA_KINEMATIC
 endif
 if ((ieee_is_nan(BETA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',BETA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = BETA ',BETA
 endif
 if ((ieee_is_nan(DEW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',DEW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = DEW ',DEW
 endif
 if ((ieee_is_nan(DRIP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',DRIP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = DRIP ',DRIP
 endif
 if ((ieee_is_nan(EC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = EC ',EC
 endif
 if ((ieee_is_nan(EDIR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',EDIR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = EDIR ',EDIR
 endif
 if ((ieee_is_nan(ESNOW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ESNOW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ESNOW ',ESNOW
 endif
 if ((ieee_is_nan(ETA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ETA ',ETA
 endif
 if ((ieee_is_nan(ETP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',ETP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ETP ',ETP
 endif
 if ((ieee_is_nan(FLX1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FLX1 ',FLX1
 endif
 if ((ieee_is_nan(FLX2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FLX2 ',FLX2
 endif
 if ((ieee_is_nan(FLX3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FLX3 ',FLX3
 endif
 if ((ieee_is_nan(SHEAT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SHEAT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SHEAT ',SHEAT
 endif
 if ((ieee_is_nan(PC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',PC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = PC ',PC
 endif
 if ((ieee_is_nan(RUNOFF1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RUNOFF1 ',RUNOFF1
 endif
 if ((ieee_is_nan(RUNOFF2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RUNOFF2 ',RUNOFF2
 endif
 if ((ieee_is_nan(RUNOFF3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RUNOFF3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RUNOFF3 ',RUNOFF3
 endif
 if ((ieee_is_nan(RC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RC ',RC
 endif
 if ((ieee_is_nan(RSMIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RSMIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RSMIN ',RSMIN
 endif
 if ((ieee_is_nan(RCQ))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCQ
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RCQ ',RCQ
 endif
 if ((ieee_is_nan(RCS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RCS ',RCS
 endif
 if ((ieee_is_nan(RCSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RCSOIL ',RCSOIL
 endif
 if ((ieee_is_nan(RCT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',RCT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = RCT ',RCT
 endif
 if ((ieee_is_nan(SSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SSOIL ',SSOIL
 endif
 if ((ieee_is_nan(SMCDRY))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCDRY
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SMCDRY ',SMCDRY
 endif
 if ((ieee_is_nan(SMCMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SMCMAX ',SMCMAX
 endif
 if ((ieee_is_nan(SMCREF))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCREF
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SMCREF ',SMCREF
 endif
 if ((ieee_is_nan(SMCWLT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SMCWLT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SMCWLT ',SMCWLT
 endif
 if ((ieee_is_nan(SNOMLT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SNOMLT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SNOMLT ',SNOMLT
 endif
 if ((ieee_is_nan(SOILM))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SOILM
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SOILM ',SOILM
 endif
 if ((ieee_is_nan(SOILW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',SOILW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = SOILW ',SOILW
 endif
 if ((ieee_is_nan(FDOWN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FDOWN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FDOWN ',FDOWN
 endif
 if ((ieee_is_nan(Q1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',Q1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = Q1 ',Q1
 endif
 if ((ieee_is_nan(FLX4))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FLX4
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FLX4 ',FLX4
 endif
 if ((ieee_is_nan(FVB))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FVB
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FVB ',FVB
 endif
 if ((ieee_is_nan(FBUR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FBUR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FBUR ',FBUR
 endif
 if ((ieee_is_nan(FGSN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = ',FGSN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sflx, var = FGSN ',FGSN
 endif
 
 ! ----------------------------------------------------------------------
@@ -1169,10 +1169,10 @@ EMISSI= ieee_value(1., ieee_signaling_nan)
 
 !      IF (ALBEDO > SNOALB) ALBEDO = SNOALB
 if ((ieee_is_nan(ALBEDO))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = ',ALBEDO
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = ALBEDO ',ALBEDO
 endif
 if ((ieee_is_nan(EMISSI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = ',EMISSI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine alcalc, var = EMISSI ',EMISSI
 endif
 
 ! ----------------------------------------------------------------------
@@ -1320,22 +1320,22 @@ RCT= ieee_value(1., ieee_signaling_nan)
 
       PC = (RR + DELTA)/ (RR * (1. + RC * CH) + DELTA)
 if ((ieee_is_nan(PC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',PC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = PC ',PC
 endif
 if ((ieee_is_nan(RC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = RC ',RC
 endif
 if ((ieee_is_nan(RCQ))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCQ
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = RCQ ',RCQ
 endif
 if ((ieee_is_nan(RCS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = RCS ',RCS
 endif
 if ((ieee_is_nan(RCSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = RCSOIL ',RCSOIL
 endif
 if ((ieee_is_nan(RCT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = ',RCT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine canres, var = RCT ',RCT
 endif
 
 ! ----------------------------------------------------------------------
@@ -1381,7 +1381,7 @@ SNCOND= ieee_value(1., ieee_signaling_nan)
 ! double snow thermal conductivity
       SNCOND = 2.0 * UNIT * C
 if ((ieee_is_nan(SNCOND))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine csnow, var = ',SNCOND
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine csnow, var = SNCOND ',SNCOND
 endif
 
 ! ----------------------------------------------------------------------
@@ -1515,7 +1515,7 @@ EDIR= ieee_value(1., ieee_signaling_nan)
 !       EDIR = FX * ( 1.0- SHDFAC ) * ETP1
        EDIR = FX * EDIRTMP
 if ((ieee_is_nan(EDIR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine devap_hydro, var = ',EDIR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine devap_hydro, var = EDIR ',EDIR
 endif
 
 
@@ -1646,7 +1646,7 @@ FLIMIT= ieee_value(1., ieee_signaling_nan)
        FLIMIT = 0.80
     ENDIF
 if ((ieee_is_nan(FLIMIT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine evapo, var = ',FLIMIT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine evapo, var = FLIMIT ',FLIMIT
 endif
 
 ! ----------------------------------------------------------------------
@@ -1792,7 +1792,7 @@ FREE= ieee_value(1., ieee_signaling_nan)
          END IF
       END IF
 if ((ieee_is_nan(FREE))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine frh2o, var = ',FREE
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine frh2o, var = FREE ',FREE
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE FRH2O
@@ -2064,16 +2064,16 @@ CI= ieee_value(1., ieee_signaling_nan)
          DDZ = DDZ2
       END DO
 if (any(ieee_is_nan(RHSTS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',RHSTS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = RHSTS ',RHSTS
 endif
 if (any(ieee_is_nan(AI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',AI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = AI ',AI
 endif
 if (any(ieee_is_nan(BI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',BI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = BI ',BI
 endif
 if (any(ieee_is_nan(CI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = ',CI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hrt, var = CI ',CI
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE HRT
@@ -2129,7 +2129,7 @@ STCOUT= ieee_value(1., ieee_signaling_nan)
       END DO
 ! ----------------------------------------------------------------------
 if (any(ieee_is_nan(STCOUT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hstep, var = ',STCOUT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine hstep, var = STCOUT ',STCOUT
 endif
   END SUBROUTINE HSTEP
 ! ----------------------------------------------------------------------
@@ -2433,43 +2433,43 @@ ET= ieee_value(1., ieee_signaling_nan)
       FLX3 = 0.0
 
 if ((ieee_is_nan(DEW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',DEW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = DEW ',DEW
 endif
 if ((ieee_is_nan(DRIP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',DRIP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = DRIP ',DRIP
 endif
 if ((ieee_is_nan(EC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',EC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = EC ',EC
 endif
 if ((ieee_is_nan(EDIR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',EDIR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = EDIR ',EDIR
 endif
 if ((ieee_is_nan(ETA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ETA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ETA ',ETA
 endif
 if ((ieee_is_nan(ETT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ETT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ETT ',ETT
 endif
 if ((ieee_is_nan(FLX1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',FLX1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = FLX1 ',FLX1
 endif
 if ((ieee_is_nan(FLX3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',FLX3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = FLX3 ',FLX3
 endif
 if ((ieee_is_nan(RUNOFF1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = RUNOFF1 ',RUNOFF1
 endif
 if ((ieee_is_nan(RUNOFF2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = RUNOFF2 ',RUNOFF2
 endif
 if ((ieee_is_nan(RUNOFF3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',RUNOFF3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = RUNOFF3 ',RUNOFF3
 endif
 if ((ieee_is_nan(SSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',SSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = SSOIL ',SSOIL
 endif
 if (any(ieee_is_nan(ET))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ',ET
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine nopac, var = ET ',ET
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE NOPAC
@@ -2600,28 +2600,28 @@ ETPN= ieee_value(1., ieee_signaling_nan)
         ETPN = EPSCAN * RCH / LVS
       END IF
 if ((ieee_is_nan(EPSCA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',EPSCA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = EPSCA ',EPSCA
 endif
 if ((ieee_is_nan(ETP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',ETP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ETP ',ETP
 endif
 if ((ieee_is_nan(FLX2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',FLX2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = FLX2 ',FLX2
 endif
 if ((ieee_is_nan(RCH))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',RCH
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = RCH ',RCH
 endif
 if ((ieee_is_nan(RR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',RR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = RR ',RR
 endif
 if ((ieee_is_nan(T24))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',T24
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = T24 ',T24
 endif
 if ((ieee_is_nan(FLX4))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',FLX4
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = FLX4 ',FLX4
 endif
 if ((ieee_is_nan(ETPN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ',ETPN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine penman, var = ETPN ',ETPN
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE PENMAN
@@ -2894,127 +2894,127 @@ RTDIS= ieee_value(1., ieee_signaling_nan)
 !dave    print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',NROOT
 !dave endif
 if ((ieee_is_nan(HS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',HS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = HS ',HS
 endif
 if ((ieee_is_nan(RSMIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RSMIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = RSMIN ',RSMIN
 endif
 if ((ieee_is_nan(RGL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RGL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = RGL ',RGL
 endif
 if ((ieee_is_nan(SNUP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SNUP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SNUP ',SNUP
 endif
 if ((ieee_is_nan(CMCMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CMCMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = CMCMAX ',CMCMAX
 endif
 if ((ieee_is_nan(RSMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RSMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = RSMAX ',RSMAX
 endif
 if ((ieee_is_nan(TOPT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',TOPT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = TOPT ',TOPT
 endif
 if ((ieee_is_nan(EMISSMIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',EMISSMIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = EMISSMIN ',EMISSMIN
 endif
 if ((ieee_is_nan(EMISSMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',EMISSMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = EMISSMAX ',EMISSMAX
 endif
 if ((ieee_is_nan(LAIMIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LAIMIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = LAIMIN ',LAIMIN
 endif
 if ((ieee_is_nan(LAIMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LAIMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = LAIMAX ',LAIMAX
 endif
 if ((ieee_is_nan(Z0MIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',Z0MIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = Z0MIN ',Z0MIN
 endif
 if ((ieee_is_nan(Z0MAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',Z0MAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = Z0MAX ',Z0MAX
 endif
 if ((ieee_is_nan(ALBEDOMIN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ALBEDOMIN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ALBEDOMIN ',ALBEDOMIN
 endif
 if ((ieee_is_nan(ALBEDOMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ALBEDOMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ALBEDOMAX ',ALBEDOMAX
 endif
 if ((ieee_is_nan(ZTOPV))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZTOPV
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ZTOPV ',ZTOPV
 endif
 if ((ieee_is_nan(ZBOTV))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZBOTV
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ZBOTV ',ZBOTV
 endif
 if ((ieee_is_nan(BEXP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',BEXP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = BEXP ',BEXP
 endif
 if ((ieee_is_nan(DKSAT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',DKSAT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = DKSAT ',DKSAT
 endif
 if ((ieee_is_nan(DWSAT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',DWSAT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = DWSAT ',DWSAT
 endif
 if ((ieee_is_nan(F1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',F1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = F1 ',F1
 endif
 if ((ieee_is_nan(QUARTZ))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',QUARTZ
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = QUARTZ ',QUARTZ
 endif
 if ((ieee_is_nan(SMCDRY))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCDRY
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SMCDRY ',SMCDRY
 endif
 if ((ieee_is_nan(SMCMAX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCMAX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SMCMAX ',SMCMAX
 endif
 if ((ieee_is_nan(SMCREF))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCREF
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SMCREF ',SMCREF
 endif
 if ((ieee_is_nan(SMCWLT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SMCWLT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SMCWLT ',SMCWLT
 endif
 if ((ieee_is_nan(PSISAT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',PSISAT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = PSISAT ',PSISAT
 endif
 if ((ieee_is_nan(SLOPE))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SLOPE
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SLOPE ',SLOPE
 endif
 if ((ieee_is_nan(CZIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CZIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = CZIL ',CZIL
 endif
 if ((ieee_is_nan(SBETA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SBETA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SBETA ',SBETA
 endif
 if ((ieee_is_nan(FXEXP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',FXEXP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = FXEXP ',FXEXP
 endif
 if ((ieee_is_nan(CSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = CSOIL ',CSOIL
 endif
 if ((ieee_is_nan(SALP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',SALP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = SALP ',SALP
 endif
 if ((ieee_is_nan(FRZX))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',FRZX
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = FRZX ',FRZX
 endif
 if ((ieee_is_nan(KDT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',KDT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = KDT ',KDT
 endif
 if ((ieee_is_nan(CFACTR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',CFACTR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = CFACTR ',CFACTR
 endif
 if ((ieee_is_nan(ZBOT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',ZBOT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ZBOT ',ZBOT
 endif
 if ((ieee_is_nan(REFKDT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',REFKDT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = REFKDT ',REFKDT
 endif
 if ((ieee_is_nan(PTU))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',PTU
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = PTU ',PTU
 endif
 if ((ieee_is_nan(LVCOEF))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',LVCOEF
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = LVCOEF ',LVCOEF
 endif
 if (any(ieee_is_nan(RTDIS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = ',RTDIS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine redprm, var = RTDIS ',RTDIS
 endif
 
       END  SUBROUTINE REDPRM
@@ -3148,7 +3148,7 @@ SSOIL= ieee_value(1., ieee_signaling_nan)
       T1 = (YY + (ZZ1- 1.0) * STC (1)) / ZZ1
       SSOIL = DF1 * (STC (1) - T1) / (0.5 * ZSOIL (1))
 if ((ieee_is_nan(SSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine shflx, var = ',SSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine shflx, var = SSOIL ',SSOIL
 endif
 
 ! ----------------------------------------------------------------------
@@ -3297,16 +3297,16 @@ RUNOFF3= ieee_value(1., ieee_signaling_nan)
 
       END IF
 if ((ieee_is_nan(DRIP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',DRIP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = DRIP ',DRIP
 endif
 if ((ieee_is_nan(RUNOFF1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = RUNOFF1 ',RUNOFF1
 endif
 if ((ieee_is_nan(RUNOFF2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = RUNOFF2 ',RUNOFF2
 endif
 if ((ieee_is_nan(RUNOFF3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = ',RUNOFF3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine smflx, var = RUNOFF3 ',RUNOFF3
 endif
 
 ! ----------------------------------------------------------------------
@@ -3421,19 +3421,19 @@ FGSN= ieee_value(1., ieee_signaling_nan)
       END IF    ! UA_PHYS
 
 if ((ieee_is_nan(SNCOVR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',SNCOVR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = SNCOVR ',SNCOVR
 endif
 if ((ieee_is_nan(FVB))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FVB
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = FVB ',FVB
 endif
 if ((ieee_is_nan(GAMA))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',GAMA
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = GAMA ',GAMA
 endif
 if ((ieee_is_nan(FBUR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FBUR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = FBUR ',FBUR
 endif
 if ((ieee_is_nan(FGSN))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = ',FGSN
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snfrac, var = FGSN ',FGSN
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNFRAC
@@ -3944,49 +3944,49 @@ ET= ieee_value(1., ieee_signaling_nan)
          SNCOVR = 0.
       END IF
 if ((ieee_is_nan(DEW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',DEW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = DEW ',DEW
 endif
 if ((ieee_is_nan(DRIP))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',DRIP
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = DRIP ',DRIP
 endif
 if ((ieee_is_nan(EC))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',EC
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = EC ',EC
 endif
 if ((ieee_is_nan(EDIR))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',EDIR
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = EDIR ',EDIR
 endif
 if ((ieee_is_nan(ETNS))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ETNS
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ETNS ',ETNS
 endif
 if ((ieee_is_nan(ESNOW))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ESNOW
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ESNOW ',ESNOW
 endif
 if ((ieee_is_nan(ETT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ETT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ETT ',ETT
 endif
 if ((ieee_is_nan(FLX1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',FLX1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = FLX1 ',FLX1
 endif
 if ((ieee_is_nan(FLX3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',FLX3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = FLX3 ',FLX3
 endif
 if ((ieee_is_nan(RUNOFF1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = RUNOFF1 ',RUNOFF1
 endif
 if ((ieee_is_nan(RUNOFF2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = RUNOFF2 ',RUNOFF2
 endif
 if ((ieee_is_nan(RUNOFF3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',RUNOFF3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = RUNOFF3 ',RUNOFF3
 endif
 if ((ieee_is_nan(SSOIL))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',SSOIL
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = SSOIL ',SSOIL
 endif
 if ((ieee_is_nan(SNOMLT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',SNOMLT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = SNOMLT ',SNOMLT
 endif
 if (any(ieee_is_nan(ET))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ',ET
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snopac, var = ET ',ET
 endif
 
 ! ----------------------------------------------------------------------
@@ -4175,7 +4175,7 @@ Z0= ieee_value(1., ieee_signaling_nan)
 
       ENDIF
 if ((ieee_is_nan(Z0))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snowz0, var = ',Z0
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine snowz0, var = Z0 ',Z0
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNOWZ0
@@ -4534,22 +4534,22 @@ CI= ieee_value(1., ieee_signaling_nan)
          END IF
       END DO
 if ((ieee_is_nan(RUNOFF1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RUNOFF1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = RUNOFF1 ',RUNOFF1
 endif
 if ((ieee_is_nan(RUNOFF2))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RUNOFF2
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = RUNOFF2 ',RUNOFF2
 endif
 if (any(ieee_is_nan(RHSTT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',RHSTT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = RHSTT ',RHSTT
 endif
 if (any(ieee_is_nan(AI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',AI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = AI ',AI
 endif
 if (any(ieee_is_nan(BI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',BI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = BI ',BI
 endif
 if (any(ieee_is_nan(CI))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = ',CI
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine srt, var = CI ',CI
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SRT
@@ -4683,10 +4683,10 @@ SH2OOUT= ieee_value(1., ieee_signaling_nan)
       IF (CMC < 1.E-20) CMC = 0.0
       CMC = MIN (CMC,CMCMAX)
 if ((ieee_is_nan(RUNOFF3))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = ',RUNOFF3
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = RUNOFF3 ',RUNOFF3
 endif
 if (any(ieee_is_nan(SH2OOUT))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = ',SH2OOUT
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine sstep, var = SH2OOUT ',SH2OOUT
 endif
 
 ! ----------------------------------------------------------------------
@@ -4734,7 +4734,7 @@ TBND1= ieee_value(1., ieee_signaling_nan)
 
       TBND1 = TU + (TB - TU)* (ZUP - ZSOIL (K))/ (ZUP - ZB) 
 if ((ieee_is_nan(TBND1))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tbnd, var = ',TBND1
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tbnd, var = TBND1 ',TBND1
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE TBND
@@ -4865,7 +4865,7 @@ DF= ieee_value(1., ieee_signaling_nan)
 
     ENDIF  ! for OPT_THCND OPTIONS             
 if ((ieee_is_nan(DF))) then
-   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tdfcnd, var = ',DF
+   print *,'NAN: file = module_sf_noahlsm.F, sub = subroutine tdfcnd, var = DF ',DF
 endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE TDFCND
