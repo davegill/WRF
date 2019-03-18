@@ -668,13 +668,19 @@ CONTAINS
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
-SMCREL(its:ite-1,:,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-NOAHRES(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FLX4_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FVB_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FBUR_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FGSN_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+do i=kts,kte
+where(xland.eq.1) 
+SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
+endwhere
+enddo
+where(xland.eq.1) 
+NOAHRES= ieee_value(1., ieee_signaling_nan)
+FLX4_2D= ieee_value(1., ieee_signaling_nan)
+FVB_2D= ieee_value(1., ieee_signaling_nan)
+FBUR_2D= ieee_value(1., ieee_signaling_nan)
+FGSN_2D= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ= ieee_value(1., ieee_signaling_nan)
+endwhere
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -2965,13 +2971,19 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
 
-SMCREL(its:ite-1,:,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-NOAHRES(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FLX4_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FVB_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FBUR_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-FGSN_2D(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ(its:ite-1,jts:jte-1)= ieee_value(1., ieee_signaling_nan)
+do i=kts,kte
+where(xland.eq.1) 
+SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
+endwhere
+enddo
+where(xland.eq.1) 
+NOAHRES= ieee_value(1., ieee_signaling_nan)
+FLX4_2D= ieee_value(1., ieee_signaling_nan)
+FVB_2D= ieee_value(1., ieee_signaling_nan)
+FBUR_2D= ieee_value(1., ieee_signaling_nan)
+FGSN_2D= ieee_value(1., ieee_signaling_nan)
+CHKLOWQ= ieee_value(1., ieee_signaling_nan)
+endwhere
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0

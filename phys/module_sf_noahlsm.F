@@ -1083,6 +1083,8 @@ endif
       REAL              :: TM,SNOALB1
       REAL, INTENT(IN)  :: LVCOEF
       REAL, PARAMETER   :: SNACCA=0.94,SNACCB=0.58,SNTHWA=0.82,SNTHWB=0.46
+ALBEDO= ieee_value(1., ieee_signaling_nan)
+EMISSI= ieee_value(1., ieee_signaling_nan)
 ! turn of vegetation effect
 !      ALBEDO = ALB + (1.0- (SHDFAC - SHDMIN))* SNCOVR * (SNOALB - ALB)
 !      ALBEDO = (1.0-SNCOVR)*ALB + SNCOVR*SNOALB !this is equivalent to below
@@ -1141,8 +1143,6 @@ endif
 ! IS INDEED ACCUMULATION SEASON. I.E. THAT SNOW SURFACE TEMP IS BELOW
 ! ZERO AND THE DATE FALLS BETWEEN OCTOBER AND FEBRUARY
 ! ----------------------------------------------------------------------
-ALBEDO= ieee_value(1., ieee_signaling_nan)
-EMISSI= ieee_value(1., ieee_signaling_nan)
          SNOALB1 = SNOALB+LVCOEF*(0.85-SNOALB)
          SNOALB2=SNOALB1
 ! ---------------- Initial LSTSNW --------------------------------------
