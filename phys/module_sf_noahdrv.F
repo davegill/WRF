@@ -1839,7 +1839,6 @@ if(nanner) stop
         MMINSL(1:4)='STAS'
 !
 
-print *,'DAVE in naoh drv, lsminit, before SOIL_VEG_GEN_PARM'
 ! initialize three Noah LSM related tables
    IF ( allowed_to_read ) THEN
      CALL wrf_message( 'INITIALIZE THREE Noah LSM RELATED TABLES' )
@@ -1859,13 +1858,11 @@ print *,'DAVE in naoh drv, lsminit, before SOIL_VEG_GEN_PARM'
 !#endif
 ! <--GAC
 
-print *,'DAVE in naoh drv, lsminit, before not restart'
    IF(.not.restart)THEN
 
    itf=min0(ite,ide-1)
    jtf=min0(jte,jde-1)
 
-print *,'DAVE in naoh drv, lsminit, before maxalb(ivgtytp)'
    errflag = 0
    DO j = jts,jtf
      DO i = its,itf
@@ -1889,7 +1886,6 @@ print *,'DAVE in naoh drv, lsminit, before maxalb(ivgtytp)'
 #endif
    ENDIF
 
-print *,'DAVE in naoh drv, lsminit, before smcmax'
 ! initialize soil liquid water content SH2O
 
 !  IF(.NOT.FNDSOILW) THEN
@@ -1899,48 +1895,33 @@ print *,'DAVE in naoh drv, lsminit, before smcmax'
         DO J = jts,jtf
         DO I = its,itf
           BX = BB(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'bx = ',bx
           SMCMAX = MAXSMC(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'smcmax = ',smcmax
           PSISAT = SATPSI(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'psisat = ',psisat
          if ((bx > 0.0).and.(smcmax > 0.0).and.(psisat > 0.0)) then
-if(i.eq.17 .and. j.eq.26) print *,'in the IF'
           DO NS=1, num_soil_layers
-if(i.eq.17 .and. j.eq.26) print *,'ns = ',ns,num_soil_layers
 ! ----------------------------------------------------------------------
 !SH2O  <= SMOIS for T < 273.149K (-0.001C)
              IF (TSLB(I,NS,J) < 273.149) THEN
-if(i.eq.17 .and. j.eq.26) print *,'tslb cold'
 ! ----------------------------------------------------------------------
 ! first guess following explicit solution for Flerchinger Eqn from Koren
 ! et al, JGR, 1999, Eqn 17 (KCOUNT=0 in FUNCTION FRH2O).
 ! ISLTPK is soil type
               BX = BB(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'bx 2 = ',bx
               SMCMAX = MAXSMC(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'smcmax 2 = ',smcmax
               PSISAT = SATPSI(ISLTYP(I,J))
-if(i.eq.17 .and. j.eq.26) print *,'psisat 2 = ',psisat
               IF ( BX >  BLIM ) BX = BLIM
-if(i.eq.17 .and. j.eq.26) print *,'bx 3 = ',bx
               FK=(( (HLICE/(GRAV*(-PSISAT))) *                              &
                  ((TSLB(I,NS,J)-T0)/TSLB(I,NS,J)) )**(-1/BX) )*SMCMAX
-if(i.eq.17 .and. j.eq.26) print *,'fk = ',fk
               IF (FK < 0.02) FK = 0.02
               SH2O(I,NS,J) = MIN( FK, SMOIS(I,NS,J) )
 ! ----------------------------------------------------------------------
 ! now use iterative solution for liquid soil water content using
 ! FUNCTION FRH2O with the initial guess for SH2O from above explicit
 ! first guess.
-if(i.eq.17 .and. j.eq.26) print *,'before call to frh2o'
               CALL FRH2O (FREE,TSLB(I,NS,J),SMOIS(I,NS,J),SH2O(I,NS,J),    &
                  SMCMAX,BX,PSISAT)
-if(i.eq.17 .and. j.eq.26) print *,'after call to frh2o'
               SH2O(I,NS,J) = FREE
-if(i.eq.17 .and. j.eq.26) print *,'after free assignment'
              ELSE             ! of IF (TSLB(I,NS,J)
-if(i.eq.17 .and. j.eq.26) print *,'tslb warm'
 ! ----------------------------------------------------------------------
 ! SH2O = SMOIS ( for T => 273.149K (-0.001C)
               SH2O(I,NS,J)=SMOIS(I,NS,J)
@@ -1948,7 +1929,6 @@ if(i.eq.17 .and. j.eq.26) print *,'tslb warm'
              ENDIF            ! of IF (TSLB(I,NS,J)
           END DO              ! of DO NS=1, num_soil_layers
          else                 ! of if ((bx > 0.0)
-if(i.eq.17 .and. j.eq.26) print *,'in the ELSE'
           DO NS=1, num_soil_layers
            SH2O(I,NS,J)=SMOIS(I,NS,J)
           END DO
@@ -1958,7 +1938,6 @@ if(i.eq.17 .and. j.eq.26) print *,'in the ELSE'
 !  ENDIF                       ! of IF(.NOT.FNDSOILW)THEN
 
 ! initialize physical snow height SNOWH
-print *,'DAVE in naoh drv, lsminit, before physical snow'
 
         IF(.NOT.FNDSNOWH)THEN
 ! If no SNOWH do the following
@@ -1972,7 +1951,6 @@ print *,'DAVE in naoh drv, lsminit, before physical snow'
 
 ! initialize canopy water to ZERO
 
-print *,'DAVE in naoh drv, lsminit, before canwat=0'
 !          GO TO 110
 !         print*,'Note that canopy water content (CANWAT) is set to ZERO in LSMINIT'
           DO J = jts,jtf
