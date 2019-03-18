@@ -1834,15 +1834,14 @@ if(nanner) stop
    INTEGER                   :: errflag
    CHARACTER(LEN=80)         :: err_message
 
-   character(LEN=256) :: MMINSL
-        MMINSL=' '
-        MMINSL(1:4)='STAS'
+   character*256 :: MMINSL
+        MMINSL='STAS'
 !
 
 ! initialize three Noah LSM related tables
    IF ( allowed_to_read ) THEN
      CALL wrf_message( 'INITIALIZE THREE Noah LSM RELATED TABLES' )
-     CALL  SOIL_VEG_GEN_PARM( TRIM(MMINLU), TRIM(MMINSL) )
+     CALL  SOIL_VEG_GEN_PARM( MMINLU, MMINSL )
    ENDIF
 
 ! GAC-->
