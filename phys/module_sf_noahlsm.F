@@ -467,7 +467,7 @@ FGSN= ieee_value(1., ieee_signaling_nan)
                          RTDIS,SLDPTH,ZSOIL,NROOT,NSOIL,CZIL,              &
                          LAIMIN, LAIMAX, EMISSMIN, EMISSMAX, ALBEDOMIN,    &
                          ALBEDOMAX, Z0MIN, Z0MAX, CSOIL, PTU, LLANDUSE,    &
-                         LSOIL,LOCAL,LVCOEF,ZTOPV,ZBOTV)
+                         LSOIL,LOCAL,LVCOEF,ZTOPV,ZBOTV,IILOC,JJLOC)
 
 !urban
          IF(VEGTYP==ISURBAN)THEN
@@ -2189,6 +2189,19 @@ endif
 !
 ! END FASDAS
 !
+DEW= ieee_value(1., ieee_signaling_nan)
+DRIP= ieee_value(1., ieee_signaling_nan)
+EC= ieee_value(1., ieee_signaling_nan)
+EDIR= ieee_value(1., ieee_signaling_nan)
+ETA= ieee_value(1., ieee_signaling_nan)
+ETT= ieee_value(1., ieee_signaling_nan)
+FLX1= ieee_value(1., ieee_signaling_nan)
+FLX3= ieee_value(1., ieee_signaling_nan)
+RUNOFF1= ieee_value(1., ieee_signaling_nan)
+RUNOFF2= ieee_value(1., ieee_signaling_nan)
+RUNOFF3= ieee_value(1., ieee_signaling_nan)
+SSOIL= ieee_value(1., ieee_signaling_nan)
+ET= ieee_value(1., ieee_signaling_nan)
 ! ----------------------------------------------------------------------
 ! EXECUTABLE CODE BEGINS HERE:
 ! CONVERT ETP Fnd PRCP FROM KG M-2 S-1 TO M S-1 AND INITIALIZE DEW.
@@ -2206,19 +2219,6 @@ endif
 !
 ! END FASDAS
 !
-DEW= ieee_value(1., ieee_signaling_nan)
-DRIP= ieee_value(1., ieee_signaling_nan)
-EC= ieee_value(1., ieee_signaling_nan)
-EDIR= ieee_value(1., ieee_signaling_nan)
-ETA= ieee_value(1., ieee_signaling_nan)
-ETT= ieee_value(1., ieee_signaling_nan)
-FLX1= ieee_value(1., ieee_signaling_nan)
-FLX3= ieee_value(1., ieee_signaling_nan)
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
-SSOIL= ieee_value(1., ieee_signaling_nan)
-ET= ieee_value(1., ieee_signaling_nan)
       EDIR = 0.
       EDIR1 = 0.
       EC1 = 0.
@@ -2518,6 +2518,7 @@ RCH= ieee_value(1., ieee_signaling_nan)
 RR= ieee_value(1., ieee_signaling_nan)
 T24= ieee_value(1., ieee_signaling_nan)
 FLX4= ieee_value(1., ieee_signaling_nan)
+if(ua_phys) &
 ETPN= ieee_value(1., ieee_signaling_nan)
         EMISSI=EMISSI_IN
         ELCP1  = (1.0-SNCOVR)*ELCP  + SNCOVR*ELCP*LSUBS/LSUBC
@@ -2635,7 +2636,7 @@ endif
                          RTDIS,SLDPTH,ZSOIL, NROOT,NSOIL,CZIL,             &
                          LAIMIN, LAIMAX, EMISSMIN, EMISSMAX, ALBEDOMIN,    &
                          ALBEDOMAX, Z0MIN, Z0MAX, CSOIL, PTU, LLANDUSE,    &
-                         LSOIL, LOCAL,LVCOEF,ZTOPV,ZBOTV)
+                         LSOIL, LOCAL,LVCOEF,ZTOPV,ZBOTV,ii,jj)
 
       IMPLICIT NONE
 ! ----------------------------------------------------------------------
@@ -2732,7 +2733,7 @@ endif
                                 SMCMAX,SMCREF,SMCWLT,PSISAT
 ! General parameters
       INTEGER, INTENT(IN)    :: SLOPETYP,NSOIL
-      INTEGER                :: I
+      INTEGER                :: I,ii,jj
 
       REAL,    INTENT(OUT)   :: SLOPE,CZIL,SBETA,FXEXP,                     &
                                 CSOIL,SALP,FRZX,KDT,CFACTR,      &
@@ -2785,7 +2786,7 @@ ZBOT= ieee_value(1., ieee_signaling_nan)
 REFKDT= ieee_value(1., ieee_signaling_nan)
 PTU= ieee_value(1., ieee_signaling_nan)
 LVCOEF= ieee_value(1., ieee_signaling_nan)
-RTDIS= ieee_value(1., ieee_signaling_nan)
+RTDIS(1: NROTBL (VEGTYP))= ieee_value(1., ieee_signaling_nan)
 ! ----------------------------------------------------------------------
 !
                IF (SOILTYP .gt. SLCATS) THEN
@@ -2874,6 +2875,13 @@ RTDIS= ieee_value(1., ieee_signaling_nan)
 !  SET-UP SLOPE PARAMETER
 ! ----------------------------------------------------------------------
                END DO
+!if(ii.eq.39 .and. jj.eq.1) then
+!print *,'DAVE in redprm'
+!print *,'nroot = ',nroot
+!print *,'sldpth = ',SLDPTH (I)
+!print *,'zsoil = ',zsoil(nroot)
+!stop
+!endif
 
 !        print*,'end of PRMRED'
 !       print*,'VEGTYP',VEGTYP,'SOILTYP',SOILTYP,'SLOPETYP',SLOPETYP,    &

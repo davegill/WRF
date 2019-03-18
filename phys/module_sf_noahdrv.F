@@ -1,3 +1,5 @@
+#define WRF_ME
+!#define MPAS_OUT
 MODULE module_sf_noahdrv
 use, intrinsic :: ieee_arithmetic, only : ieee_signaling_nan, ieee_is_nan, ieee_value
 
@@ -668,7 +670,8 @@ CONTAINS
    REAL                    ::  HFX_PHY, QFX_PHY
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
-do i=kts,kte
+logical nanner
+do i=1,num_soil_layers
 where(xland.eq.1) 
 SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
 endwhere
@@ -1042,7 +1045,6 @@ endwhere
 !
 !  END FASDAS
 !
-print *,'DAVE i,j = ',i,j
        CALL SFLX (I,J,FFROZP, ISURBAN, DT,ZLVL,NSOIL,SLDPTH,       &    !C
                  LOCAL,                                            &    !L
                  LUTYPE, SLTYPE,                                   &    !CL
@@ -1705,27 +1707,71 @@ print *,'DAVE i,j = ',i,j
 
 
        endif                                                           !Bep end
-if (any(ieee_is_nan(SMCREL))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = SMCREL ',SMCREL
-endif
-if (any(ieee_is_nan(NOAHRES))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = NOAHRES ',NOAHRES
-endif
-if (any(ieee_is_nan(FLX4_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FLX4_2D ',FLX4_2D
-endif
-if (any(ieee_is_nan(FVB_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FVB_2D ',FVB_2D
-endif
-if (any(ieee_is_nan(FBUR_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FBUR_2D ',FBUR_2D
-endif
-if (any(ieee_is_nan(FGSN_2D))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FGSN_2D ',FGSN_2D
-endif
-if (any(ieee_is_nan(CHKLOWQ))) then
-   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = CHKLOWQ ',CHKLOWQ
-endif
+!if (any(ieee_is_nan(SMCREL))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = SMCREL ',SMCREL
+!endif
+!if (any(ieee_is_nan(NOAHRES))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = NOAHRES ',NOAHRES
+!endif
+!if (any(ieee_is_nan(FLX4_2D))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FLX4_2D ',FLX4_2D
+!endif
+!if (any(ieee_is_nan(FVB_2D))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FVB_2D ',FVB_2D
+!endif
+!if (any(ieee_is_nan(FBUR_2D))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FBUR_2D ',FBUR_2D
+!endif
+!if (any(ieee_is_nan(FGSN_2D))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = FGSN_2D ',FGSN_2D
+!endif
+!if (any(ieee_is_nan(CHKLOWQ))) then
+!   nanner = .true.
+!   print *,'NAN: file = module_sf_noahdrv.F, sub = subroutine lsm, var = CHKLOWQ ',CHKLOWQ
+!endif
+nanner = .false.
+#if defined(WRF_ME)
+do j = jts,jte-1
+do i = its,ite-1
+#endif
+#if defined(MPAS_OUT)
+do j = jts,jte
+do i = its,ite
+#endif
+   if ( ( ( ieee_is_nan(SMCREL(i,1,j))) .or. &
+          ( ieee_is_nan(SMCREL(i,2,j))) .or. &
+          ( ieee_is_nan(SMCREL(i,3,j))) .or. &
+          ( ieee_is_nan(SMCREL(i,4,j))) .or. &
+          ( ieee_is_nan(NOAHRES(i,j)))  .or. &
+          ( ieee_is_nan(FLX4_2D(i,j)))  .or. &
+          ( ieee_is_nan(FVB_2d(i,j)))   .or. &
+          ( ieee_is_nan(FBUR_2D(i,j)))  .or. &
+          ( ieee_is_nan(FGSN_2D(i,j)))  .or. &
+          ( ieee_is_nan(CHKLOWQ(i,j)))) .and. &
+        ( xland(i,j).eq.1 ) ) then
+      nanner = .true.
+      print *,'   ============== '
+      print *,'troubles at (i,j) = ',i,j
+      print *,'SMCREL(i,1,j) = ', SMCREL(i,1,j)
+      print *,'SMCREL(i,2,j) = ', SMCREL(i,2,j)
+      print *,'SMCREL(i,3,j) = ', SMCREL(i,3,j)
+      print *,'SMCREL(i,4,j) = ', SMCREL(i,4,j)
+      print *,'NOAHRES(i,j)  = ', NOAHRES(i,j)
+      print *,'FLX4_2D(i,j)  = ', FLX4_2D(i,j)
+      print *,'FVB_2d(i,j)   = ', FVB_2d(i,j)
+      print *,'FBUR_2D(i,j)  = ', FBUR_2D(i,j)
+      print *,'FGSN_2D(i,j)  = ', FGSN_2D(i,j)
+      print *,'CHKLOWQ(i,j)  = ', CHKLOWQ(i,j)
+   endif
+enddo
+enddo
+if(nanner) stop
 
 !------------------------------------------------------
    END SUBROUTINE lsm
@@ -2971,7 +3017,7 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
 
-do i=kts,kte
+do i=1,num_soil_layers
 where(xland.eq.1) 
 SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
 endwhere
