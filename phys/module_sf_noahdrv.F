@@ -671,19 +671,19 @@ CONTAINS
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
 logical nanner
-do i=1,num_soil_layers
-where(xland.eq.1) 
-SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
-endwhere
-enddo
-where(xland.eq.1) 
-NOAHRES= ieee_value(1., ieee_signaling_nan)
-FLX4_2D= ieee_value(1., ieee_signaling_nan)
-FVB_2D= ieee_value(1., ieee_signaling_nan)
-FBUR_2D= ieee_value(1., ieee_signaling_nan)
-FGSN_2D= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ= ieee_value(1., ieee_signaling_nan)
-endwhere
+!do i=1,num_soil_layers
+!where(xland.eq.1) 
+SMCREL=spec_init(SMCREL)
+!endwhere
+!enddo
+!where(xland.eq.1) 
+NOAHRES=spec_init(NOAHRES)
+FLX4_2D=spec_init(FLX4_2D)
+FVB_2D=spec_init(FVB_2D)
+FBUR_2D=spec_init(FBUR_2D)
+FGSN_2D=spec_init(FGSN_2D)
+CHKLOWQ=spec_init(CHKLOWQ)
+!endwhere
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -2994,19 +2994,19 @@ SUBROUTINE lsm_mosaic(DZ8W,QV3D,P8W3D,T3D,TSK,                      &
    REAL                    ::  DZQ
    REAL                    ::  HCPCT_FASDAS
 
-do i=1,num_soil_layers
-where(xland.eq.1) 
-SMCREL(:,k,:)= ieee_value(1., ieee_signaling_nan)
-endwhere
-enddo
-where(xland.eq.1) 
-NOAHRES= ieee_value(1., ieee_signaling_nan)
-FLX4_2D= ieee_value(1., ieee_signaling_nan)
-FVB_2D= ieee_value(1., ieee_signaling_nan)
-FBUR_2D= ieee_value(1., ieee_signaling_nan)
-FGSN_2D= ieee_value(1., ieee_signaling_nan)
-CHKLOWQ= ieee_value(1., ieee_signaling_nan)
-endwhere
+!do i=1,num_soil_layers
+!where(xland.eq.1) 
+SMCREL=spec_init(SMCREL)
+!endwhere
+!enddo
+!where(xland.eq.1) 
+NOAHRES=spec_init(NOAHRES)
+FLX4_2D=spec_init(FLX4_2D)
+FVB_2D=spec_init(FVB_2D)
+FBUR_2D=spec_init(FBUR_2D)
+FGSN_2D=spec_init(FGSN_2D)
+CHKLOWQ=spec_init(CHKLOWQ)
+!endwhere
 
    HFX_PHY = 0.0   ! initialize
    QFX_PHY = 0.0
@@ -5219,5 +5219,11 @@ endif
 !--------------------------------      
   END SUBROUTINE lsm_mosaic_init  
 !--------------------------------  
+
+elemental real function spec_init(var)
+real, intent(in) :: var
+!var = ieee_value(1., ieee_signaling_nan)
+spec_init = huge(1.)
+end function
 
 END MODULE module_sf_noahdrv

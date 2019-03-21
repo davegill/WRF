@@ -390,47 +390,47 @@ CONTAINS
 !   INITIALIZATION
 ! ----------------------------------------------------------------------
 !dave NROOT= ieee_value(1., ieee_signaling_nan)
-EMBRD= ieee_value(1., ieee_signaling_nan)
-ALBEDO= ieee_value(1., ieee_signaling_nan)
-ET= ieee_value(1., ieee_signaling_nan)
-SMAV= ieee_value(1., ieee_signaling_nan)
-ETA_KINEMATIC= ieee_value(1., ieee_signaling_nan)
-BETA= ieee_value(1., ieee_signaling_nan)
-DEW= ieee_value(1., ieee_signaling_nan)
-DRIP= ieee_value(1., ieee_signaling_nan)
-EC= ieee_value(1., ieee_signaling_nan)
-EDIR= ieee_value(1., ieee_signaling_nan)
-ESNOW= ieee_value(1., ieee_signaling_nan)
-ETA= ieee_value(1., ieee_signaling_nan)
-ETP= ieee_value(1., ieee_signaling_nan)
-FLX1= ieee_value(1., ieee_signaling_nan)
-FLX2= ieee_value(1., ieee_signaling_nan)
-FLX3= ieee_value(1., ieee_signaling_nan)
-SHEAT= ieee_value(1., ieee_signaling_nan)
-PC= ieee_value(1., ieee_signaling_nan)
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
-RC= ieee_value(1., ieee_signaling_nan)
-RSMIN= ieee_value(1., ieee_signaling_nan)
-RCQ= ieee_value(1., ieee_signaling_nan)
-RCS= ieee_value(1., ieee_signaling_nan)
-RCSOIL= ieee_value(1., ieee_signaling_nan)
-RCT= ieee_value(1., ieee_signaling_nan)
-SSOIL= ieee_value(1., ieee_signaling_nan)
-SMCDRY= ieee_value(1., ieee_signaling_nan)
-SMCMAX= ieee_value(1., ieee_signaling_nan)
-SMCREF= ieee_value(1., ieee_signaling_nan)
-SMCWLT= ieee_value(1., ieee_signaling_nan)
-SNOMLT= ieee_value(1., ieee_signaling_nan)
-SOILM= ieee_value(1., ieee_signaling_nan)
-SOILW= ieee_value(1., ieee_signaling_nan)
-FDOWN= ieee_value(1., ieee_signaling_nan)
-Q1= ieee_value(1., ieee_signaling_nan)
-FLX4= ieee_value(1., ieee_signaling_nan)
-FVB= ieee_value(1., ieee_signaling_nan)
-FBUR= ieee_value(1., ieee_signaling_nan)
-FGSN= ieee_value(1., ieee_signaling_nan)
+EMBRD=spec_init(EMBRD)
+ALBEDO=spec_init(ALBEDO)
+ET=spec_init(ET)
+SMAV=spec_init(SMAV)
+ETA_KINEMATIC=spec_init(ETA_KINEMATIC)
+BETA=spec_init(BETA)
+DEW=spec_init(DEW)
+DRIP=spec_init(DRIP)
+EC=spec_init(EC)
+EDIR=spec_init(EDIR)
+ESNOW=spec_init(ESNOW)
+ETA=spec_init(ETA)
+ETP=spec_init(ETP)
+FLX1=spec_init(FLX1)
+FLX2=spec_init(FLX2)
+FLX3=spec_init(FLX3)
+SHEAT=spec_init(SHEAT)
+PC=spec_init(PC)
+RUNOFF1=spec_init(RUNOFF1)
+RUNOFF2=spec_init(RUNOFF2)
+RUNOFF3=spec_init(RUNOFF3)
+RC=spec_init(RC)
+RSMIN=spec_init(RSMIN)
+RCQ=spec_init(RCQ)
+RCS=spec_init(RCS)
+RCSOIL=spec_init(RCSOIL)
+RCT=spec_init(RCT)
+SSOIL=spec_init(SSOIL)
+SMCDRY=spec_init(SMCDRY)
+SMCMAX=spec_init(SMCMAX)
+SMCREF=spec_init(SMCREF)
+SMCWLT=spec_init(SMCWLT)
+SNOMLT=spec_init(SNOMLT)
+SOILM=spec_init(SOILM)
+SOILW=spec_init(SOILW)
+FDOWN=spec_init(FDOWN)
+Q1=spec_init(Q1)
+FLX4=spec_init(FLX4)
+FVB=spec_init(FVB)
+FBUR=spec_init(FBUR)
+FGSN=spec_init(FGSN)
       ILOC = IILOC
       JLOC = JJLOC
 
@@ -799,6 +799,7 @@ FGSN= ieee_value(1., ieee_signaling_nan)
 ! EXISTS OR NOT:
 ! ----------------------------------------------------------------------
          ESNOW = 0.0
+print *,'DAVE i,j = ',iiloc,jjloc
          IF (SNEQV  == 0.0) THEN
             CALL NOPAC (ETP,ETA,PRCP,SMC,SMCMAX,SMCWLT,                  &
                             SMCREF,SMCDRY,CMC,CMCMAX,NSOIL,DT,           &
@@ -1083,8 +1084,8 @@ endif
       REAL              :: TM,SNOALB1
       REAL, INTENT(IN)  :: LVCOEF
       REAL, PARAMETER   :: SNACCA=0.94,SNACCB=0.58,SNTHWA=0.82,SNTHWB=0.46
-ALBEDO= ieee_value(1., ieee_signaling_nan)
-EMISSI= ieee_value(1., ieee_signaling_nan)
+ALBEDO=spec_init(ALBEDO)
+EMISSI=spec_init(EMISSI)
 ! turn of vegetation effect
 !      ALBEDO = ALB + (1.0- (SHDFAC - SHDMIN))* SNCOVR * (SNOALB - ALB)
 !      ALBEDO = (1.0-SNCOVR)*ALB + SNCOVR*SNOALB !this is equivalent to below
@@ -1232,12 +1233,12 @@ endif
       REAL, DIMENSION(1:NSOIL) ::  PART
       REAL, PARAMETER     :: SLV = 2.501000E6
 
-PC= ieee_value(1., ieee_signaling_nan)
-RC= ieee_value(1., ieee_signaling_nan)
-RCQ= ieee_value(1., ieee_signaling_nan)
-RCS= ieee_value(1., ieee_signaling_nan)
-RCSOIL= ieee_value(1., ieee_signaling_nan)
-RCT= ieee_value(1., ieee_signaling_nan)
+PC=spec_init(PC)
+RC=spec_init(RC)
+RCQ=spec_init(RCQ)
+RCS=spec_init(RCS)
+RCSOIL=spec_init(RCSOIL)
+RCT=spec_init(RCT)
 
 ! ----------------------------------------------------------------------
 ! INITIALIZE CANOPY RESISTANCE MULTIPLIER TERMS.
@@ -1355,7 +1356,7 @@ endif
       REAL, INTENT(OUT):: SNCOND
       REAL             :: C
       REAL, PARAMETER  :: UNIT = 0.11631
-SNCOND= ieee_value(1., ieee_signaling_nan)
+SNCOND=spec_init(SNCOND)
 
 ! ----------------------------------------------------------------------
 ! SNCOND IN UNITS OF CAL/(CM*HR*C), RETURNED IN W/(M*C)
@@ -1448,7 +1449,7 @@ endif
       REAL, INTENT(IN   ) :: DT
        REAL             :: EDIRTMP
 
-EDIR= ieee_value(1., ieee_signaling_nan)
+EDIR=spec_init(EDIR)
 
 
 ! ----------------------------------------------------------------------
@@ -1630,7 +1631,7 @@ endif
     IMPLICIT NONE		
     REAL, INTENT(IN)  :: SMCMAX
     REAL, INTENT(OUT) :: FLIMIT
-FLIMIT= ieee_value(1., ieee_signaling_nan)
+FLIMIT=spec_init(FLIMIT)
 
     FLIMIT = 0.90
 
@@ -1693,7 +1694,7 @@ endif
       REAL, PARAMETER      :: CK = 8.0, BLIM = 5.5, ERROR = 0.005,       &
                               HLICE = 3.335E5, GS = 9.81,DICE = 920.0,   &
                               DH2O = 1000.0, T0 = 273.15
-FREE= ieee_value(1., ieee_signaling_nan)
+FREE=spec_init(FREE)
 
 ! ----------------------------------------------------------------------
 ! LIMITS ON PARAMETER B: B < 5.5  (use parameter BLIM)
@@ -1836,10 +1837,10 @@ endif
 !
 ! END FASDAS
 !
-RHSTS= ieee_value(1., ieee_signaling_nan)
-AI= ieee_value(1., ieee_signaling_nan)
-BI= ieee_value(1., ieee_signaling_nan)
-CI= ieee_value(1., ieee_signaling_nan)
+RHSTS=spec_init(RHSTS)
+AI=spec_init(AI)
+BI=spec_init(BI)
+CI=spec_init(CI)
 
 !urban
         IF( VEGTYP == ISURBAN ) then
@@ -2097,7 +2098,7 @@ endif
       REAL, DIMENSION(1:NSOIL) :: RHSTSin
       REAL, DIMENSION(1:NSOIL) :: CIin
       REAL                 :: DT
-STCOUT= ieee_value(1., ieee_signaling_nan)
+STCOUT=spec_init(STCOUT)
 
 ! ----------------------------------------------------------------------
 ! CREATE FINITE DIFFERENCE VALUES FOR USE IN ROSR12 ROUTINE
@@ -2189,19 +2190,19 @@ endif
 !
 ! END FASDAS
 !
-DEW= ieee_value(1., ieee_signaling_nan)
-DRIP= ieee_value(1., ieee_signaling_nan)
-EC= ieee_value(1., ieee_signaling_nan)
-EDIR= ieee_value(1., ieee_signaling_nan)
-ETA= ieee_value(1., ieee_signaling_nan)
-ETT= ieee_value(1., ieee_signaling_nan)
-FLX1= ieee_value(1., ieee_signaling_nan)
-FLX3= ieee_value(1., ieee_signaling_nan)
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
-SSOIL= ieee_value(1., ieee_signaling_nan)
-ET= ieee_value(1., ieee_signaling_nan)
+DEW=spec_init(DEW)
+DRIP=spec_init(DRIP)
+EC=spec_init(EC)
+EDIR=spec_init(EDIR)
+ETA=spec_init(ETA)
+ETT=spec_init(ETT)
+FLX1=spec_init(FLX1)
+FLX3=spec_init(FLX3)
+RUNOFF1=spec_init(RUNOFF1)
+RUNOFF2=spec_init(RUNOFF2)
+RUNOFF3=spec_init(RUNOFF3)
+SSOIL=spec_init(SSOIL)
+ET=spec_init(ET)
 ! ----------------------------------------------------------------------
 ! EXECUTABLE CODE BEGINS HERE:
 ! CONVERT ETP Fnd PRCP FROM KG M-2 S-1 TO M S-1 AND INITIALIZE DEW.
@@ -2511,15 +2512,15 @@ endif
 ! ----------------------------------------------------------------------
 ! PREPARE PARTIAL QUANTITIES FOR PENMAN EQUATION.
 ! ----------------------------------------------------------------------
-EPSCA= ieee_value(1., ieee_signaling_nan)
-ETP= ieee_value(1., ieee_signaling_nan)
-FLX2= ieee_value(1., ieee_signaling_nan)
-RCH= ieee_value(1., ieee_signaling_nan)
-RR= ieee_value(1., ieee_signaling_nan)
-T24= ieee_value(1., ieee_signaling_nan)
-FLX4= ieee_value(1., ieee_signaling_nan)
+EPSCA=spec_init(EPSCA)
+ETP=spec_init(ETP)
+FLX2=spec_init(FLX2)
+RCH=spec_init(RCH)
+RR=spec_init(RR)
+T24=spec_init(T24)
+FLX4=spec_init(FLX4)
 if(ua_phys) &
-ETPN= ieee_value(1., ieee_signaling_nan)
+ETPN=spec_init(ETPN)
         EMISSI=EMISSI_IN
         ELCP1  = (1.0-SNCOVR)*ELCP  + SNCOVR*ELCP*LSUBS/LSUBC
         LVS    = (1.0-SNCOVR)*LSUBC + SNCOVR*LSUBS
@@ -2746,47 +2747,47 @@ endif
 
 !      SAVE
 !dave NROOT= ieee_value(1, ieee_signaling_nan)
-HS= ieee_value(1., ieee_signaling_nan)
-RSMIN= ieee_value(1., ieee_signaling_nan)
-RGL= ieee_value(1., ieee_signaling_nan)
-SNUP= ieee_value(1., ieee_signaling_nan)
-CMCMAX= ieee_value(1., ieee_signaling_nan)
-RSMAX= ieee_value(1., ieee_signaling_nan)
-TOPT= ieee_value(1., ieee_signaling_nan)
-EMISSMIN= ieee_value(1., ieee_signaling_nan)
-EMISSMAX= ieee_value(1., ieee_signaling_nan)
-LAIMIN= ieee_value(1., ieee_signaling_nan)
-LAIMAX= ieee_value(1., ieee_signaling_nan)
-Z0MIN= ieee_value(1., ieee_signaling_nan)
-Z0MAX= ieee_value(1., ieee_signaling_nan)
-ALBEDOMIN= ieee_value(1., ieee_signaling_nan)
-ALBEDOMAX= ieee_value(1., ieee_signaling_nan)
-ZTOPV= ieee_value(1., ieee_signaling_nan)
-ZBOTV= ieee_value(1., ieee_signaling_nan)
-BEXP= ieee_value(1., ieee_signaling_nan)
-DKSAT= ieee_value(1., ieee_signaling_nan)
-DWSAT= ieee_value(1., ieee_signaling_nan)
-F1= ieee_value(1., ieee_signaling_nan)
-QUARTZ= ieee_value(1., ieee_signaling_nan)
-SMCDRY= ieee_value(1., ieee_signaling_nan)
-SMCMAX= ieee_value(1., ieee_signaling_nan)
-SMCREF= ieee_value(1., ieee_signaling_nan)
-SMCWLT= ieee_value(1., ieee_signaling_nan)
-PSISAT= ieee_value(1., ieee_signaling_nan)
-SLOPE= ieee_value(1., ieee_signaling_nan)
-CZIL= ieee_value(1., ieee_signaling_nan)
-SBETA= ieee_value(1., ieee_signaling_nan)
-FXEXP= ieee_value(1., ieee_signaling_nan)
-CSOIL= ieee_value(1., ieee_signaling_nan)
-SALP= ieee_value(1., ieee_signaling_nan)
-FRZX= ieee_value(1., ieee_signaling_nan)
-KDT= ieee_value(1., ieee_signaling_nan)
-CFACTR= ieee_value(1., ieee_signaling_nan)
-ZBOT= ieee_value(1., ieee_signaling_nan)
-REFKDT= ieee_value(1., ieee_signaling_nan)
-PTU= ieee_value(1., ieee_signaling_nan)
-LVCOEF= ieee_value(1., ieee_signaling_nan)
-RTDIS(1: NROTBL (VEGTYP))= ieee_value(1., ieee_signaling_nan)
+HS=spec_init(HS)
+RSMIN=spec_init(RSMIN)
+RGL=spec_init(RGL)
+SNUP=spec_init(SNUP)
+CMCMAX=spec_init(CMCMAX)
+RSMAX=spec_init(RSMAX)
+TOPT=spec_init(TOPT)
+EMISSMIN=spec_init(EMISSMIN)
+EMISSMAX=spec_init(EMISSMAX)
+LAIMIN=spec_init(LAIMIN)
+LAIMAX=spec_init(LAIMAX)
+Z0MIN=spec_init(Z0MIN)
+Z0MAX=spec_init(Z0MAX)
+ALBEDOMIN=spec_init(ALBEDOMIN)
+ALBEDOMAX=spec_init(ALBEDOMAX)
+ZTOPV=spec_init(ZTOPV)
+ZBOTV=spec_init(ZBOTV)
+BEXP=spec_init(BEXP)
+DKSAT=spec_init(DKSAT)
+DWSAT=spec_init(DWSAT)
+F1=spec_init(F1)
+QUARTZ=spec_init(QUARTZ)
+SMCDRY=spec_init(SMCDRY)
+SMCMAX=spec_init(SMCMAX)
+SMCREF=spec_init(SMCREF)
+SMCWLT=spec_init(SMCWLT)
+PSISAT=spec_init(PSISAT)
+SLOPE=spec_init(SLOPE)
+CZIL=spec_init(CZIL)
+SBETA=spec_init(SBETA)
+FXEXP=spec_init(FXEXP)
+CSOIL=spec_init(CSOIL)
+SALP=spec_init(SALP)
+FRZX=spec_init(FRZX)
+KDT=spec_init(KDT)
+CFACTR=spec_init(CFACTR)
+ZBOT=spec_init(ZBOT)
+REFKDT=spec_init(REFKDT)
+PTU=spec_init(PTU)
+LVCOEF=spec_init(LVCOEF)
+RTDIS=spec_init(RTDIS)
 ! ----------------------------------------------------------------------
 !
                IF (SOILTYP .gt. SLCATS) THEN
@@ -3152,7 +3153,7 @@ endif
 ! ----------------------------------------------------------------------
 ! CALCULATE SURFACE SOIL HEAT FLUX
 ! ----------------------------------------------------------------------
-SSOIL= ieee_value(1., ieee_signaling_nan)
+SSOIL=spec_init(SSOIL)
       T1 = (YY + (ZZ1- 1.0) * STC (1)) / ZZ1
       SSOIL = DF1 * (STC (1) - T1) / (0.5 * ZSOIL (1))
 if ((ieee_is_nan(SSOIL))) then
@@ -3205,10 +3206,10 @@ endif
 ! ----------------------------------------------------------------------
 ! COMPUTE THE RIGHT HAND SIDE OF THE CANOPY EQN TERM ( RHSCT )
 ! ----------------------------------------------------------------------
-DRIP= ieee_value(1., ieee_signaling_nan)
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
+DRIP=spec_init(DRIP)
+RUNOFF1=spec_init(RUNOFF1)
+RUNOFF2=spec_init(RUNOFF2)
+RUNOFF3=spec_init(RUNOFF3)
       DUMMY = 0.
 
 ! ----------------------------------------------------------------------
@@ -3274,7 +3275,6 @@ RUNOFF3= ieee_value(1., ieee_signaling_nan)
 !DJG NDHMS/WRF-Hydro edit... Add previous ponded water to new precip drip...
     PCPDRP = PCPDRP + SFHEAD1RT/1000./DT   ! convert SFHEAD1RT to (m/s)
 #endif
-
 
       IF ( ( (PCPDRP * DT) > (0.0001*1000.0* (- ZSOIL (1))* SMCMAX) )   &
            .OR. (FAC2 > FLIMIT) ) THEN
@@ -3356,11 +3356,11 @@ endif
 ! SNUP IS VEG-CLASS DEPENDENT SNOWDEPTH THRESHHOLD (SET IN ROUTINE
 ! REDPRM) ABOVE WHICH SNOCVR=1.
 ! ----------------------------------------------------------------------
-SNCOVR= ieee_value(1., ieee_signaling_nan)
-FVB= ieee_value(1., ieee_signaling_nan)
-GAMA= ieee_value(1., ieee_signaling_nan)
-FBUR= ieee_value(1., ieee_signaling_nan)
-FGSN= ieee_value(1., ieee_signaling_nan)
+SNCOVR=spec_init(SNCOVR)
+FVB=spec_init(FVB)
+GAMA=spec_init(GAMA)
+FBUR=spec_init(FBUR)
+FGSN=spec_init(FGSN)
       IF (SNEQV < SNUP) THEN
          RSNOW = SNEQV / SNUP
          SNCOVR = 1. - ( EXP ( - SALP * RSNOW) - RSNOW * EXP ( - SALP))
@@ -3631,21 +3631,21 @@ endif
 ! ETP1 [M S-1]
 ! ETP2 [M]
 ! ----------------------------------------------------------------------
-DEW= ieee_value(1., ieee_signaling_nan)
-DRIP= ieee_value(1., ieee_signaling_nan)
-EC= ieee_value(1., ieee_signaling_nan)
-EDIR= ieee_value(1., ieee_signaling_nan)
-ETNS= ieee_value(1., ieee_signaling_nan)
-ESNOW= ieee_value(1., ieee_signaling_nan)
-ETT= ieee_value(1., ieee_signaling_nan)
-FLX1= ieee_value(1., ieee_signaling_nan)
-FLX3= ieee_value(1., ieee_signaling_nan)
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
-SSOIL= ieee_value(1., ieee_signaling_nan)
-SNOMLT= ieee_value(1., ieee_signaling_nan)
-ET= ieee_value(1., ieee_signaling_nan)
+DEW=spec_init(DEW)
+DRIP=spec_init(DRIP)
+EC=spec_init(EC)
+EDIR=spec_init(EDIR)
+ETNS=spec_init(ETNS)
+ESNOW=spec_init(ESNOW)
+ETT=spec_init(ETT)
+FLX1=spec_init(FLX1)
+FLX3=spec_init(FLX3)
+RUNOFF1=spec_init(RUNOFF1)
+RUNOFF2=spec_init(RUNOFF2)
+RUNOFF3=spec_init(RUNOFF3)
+SSOIL=spec_init(SSOIL)
+SNOMLT=spec_init(SNOMLT)
+ET=spec_init(ET)
       DEW = 0.
       EDIR = 0.
       EDIR1 = 0.
@@ -4160,7 +4160,7 @@ endif
       REAL, INTENT(IN)        :: SHDMAX    ! UA: maximum vegetation fraction
       REAL, PARAMETER         :: Z0G=0.01  ! UA: soil roughness
       REAL                    :: FV,A1,A2
-Z0= ieee_value(1., ieee_signaling_nan)
+Z0=spec_init(Z0)
 
       IF(UA_PHYS) THEN
 
@@ -4299,12 +4299,12 @@ endif
 ! LET SICEMAX BE THE GREATEST, IF ANY, FROZEN WATER CONTENT WITHIN SOIL
 ! LAYERS.
 ! ----------------------------------------------------------------------
-RUNOFF1= ieee_value(1., ieee_signaling_nan)
-RUNOFF2= ieee_value(1., ieee_signaling_nan)
-RHSTT= ieee_value(1., ieee_signaling_nan)
-AI= ieee_value(1., ieee_signaling_nan)
-BI= ieee_value(1., ieee_signaling_nan)
-CI= ieee_value(1., ieee_signaling_nan)
+RUNOFF1=spec_init(RUNOFF1)
+RUNOFF2=spec_init(RUNOFF2)
+RHSTT=spec_init(RHSTT)
+AI=spec_init(AI)
+BI=spec_init(BI)
+CI=spec_init(CI)
       IOHINF = 1
       SICEMAX = 0.0
       DO KS = 1,NSOIL
@@ -4596,8 +4596,8 @@ endif
 ! CREATE 'AMOUNT' VALUES OF VARIABLES TO BE INPUT TO THE
 ! TRI-DIAGONAL MATRIX ROUTINE.
 ! ----------------------------------------------------------------------
-RUNOFF3= ieee_value(1., ieee_signaling_nan)
-SH2OOUT= ieee_value(1., ieee_signaling_nan)
+RUNOFF3=spec_init(RUNOFF3)
+SH2OOUT=spec_init(SH2OOUT)
       DO K = 1,NSOIL
          RHSTT (K) = RHSTT (K) * DT
          AI (K) = AI (K) * DT
@@ -4625,6 +4625,7 @@ SH2OOUT= ieee_value(1., ieee_signaling_nan)
       WPLUS = 0.0
       RUNOFF3 = 0.
 
+print *,'DAVE SH2OIN = ',SH2OIN
       DDZ = - ZSOIL (1)
       DO K = 1,NSOIL
          IF (K /= 1) DDZ = ZSOIL (K - 1) - ZSOIL (K)
@@ -4721,7 +4722,7 @@ endif
 ! ----------------------------------------------------------------------
 ! USE SURFACE TEMPERATURE ON THE TOP OF THE FIRST LAYER
 ! ----------------------------------------------------------------------
-TBND1= ieee_value(1., ieee_signaling_nan)
+TBND1=spec_init(TBND1)
      IF (K == 1) THEN
          ZUP = 0.
       ELSE
@@ -4840,7 +4841,7 @@ IF ( OPT_THCND == 1 .OR. ( OPT_THCND == 2 .AND. (SOILTYP /= 4 .AND. SOILTYP /= 3
 ! KERSTEN NUMBER (USING "FINE" FORMULA, VALID FOR SOILS CONTAINING AT
 ! LEAST 5% OF PARTICLES WITH DIAMETER LESS THAN 2.E-6 METERS.)
 ! (FOR "COARSE" FORMULA, SEE PETERS-LIDARD ET AL., 1998).
-DF= ieee_value(1., ieee_signaling_nan)
+DF=spec_init(DF)
 
          IF ( SATRATIO >  0.1 ) THEN
 
@@ -5387,5 +5388,11 @@ endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SFCDIF_off
 ! ----------------------------------------------------------------------
+
+elemental real function spec_init(var)
+real, intent(in) :: var
+!var = ieee_value(1., ieee_signaling_nan)
+spec_init = huge(1.)
+end function
 
 END MODULE module_sf_noahlsm

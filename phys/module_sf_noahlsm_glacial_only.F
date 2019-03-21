@@ -192,8 +192,8 @@ CONTAINS
     REAL, PARAMETER :: LVH2O = 2.501E+6
     REAL, PARAMETER :: LSUBS = 2.83E+6
     REAL, PARAMETER :: R = 287.04
-EMBRD= ieee_value(1., ieee_signaling_nan)
-ALBEDO= ieee_value(1., ieee_signaling_nan)
+EMBRD=spec_init(EMBRD)
+ALBEDO=spec_init(ALBEDO)
 
 ! ----------------------------------------------------------------------
     iloc = iiloc
@@ -1275,5 +1275,11 @@ endif
 ! ----------------------------------------------------------------------
   END SUBROUTINE SNOW_NEW
 ! ----------------------------------------------------------------------
+
+elemental real function spec_init(var)
+real, intent(in) :: var
+!var = ieee_value(1., ieee_signaling_nan)
+spec_init = huge(1.)
+end function
 
 END MODULE module_sf_noahlsm_glacial_only
