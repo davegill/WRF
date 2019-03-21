@@ -1278,8 +1278,9 @@ endif
 
 elemental real function spec_init(var)
 real, intent(in) :: var
-!var = ieee_value(1., ieee_signaling_nan)
-spec_init = huge(1.)
+!spec_init = ieee_value(1., ieee_signaling_nan)
+!spec_init = huge(1.)
+spec_init = 0.
 end function
 
 END MODULE module_sf_noahlsm_glacial_only

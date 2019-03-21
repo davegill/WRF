@@ -799,7 +799,7 @@ FGSN=spec_init(FGSN)
 ! EXISTS OR NOT:
 ! ----------------------------------------------------------------------
          ESNOW = 0.0
-print *,'DAVE i,j = ',iiloc,jjloc
+!print *,'DAVE i,j = ',iiloc,jjloc
          IF (SNEQV  == 0.0) THEN
             CALL NOPAC (ETP,ETA,PRCP,SMC,SMCMAX,SMCWLT,                  &
                             SMCREF,SMCDRY,CMC,CMCMAX,NSOIL,DT,           &
@@ -4625,7 +4625,7 @@ SH2OOUT=spec_init(SH2OOUT)
       WPLUS = 0.0
       RUNOFF3 = 0.
 
-print *,'DAVE SH2OIN = ',SH2OIN
+!print *,'DAVE SH2OIN = ',SH2OIN
       DDZ = - ZSOIL (1)
       DO K = 1,NSOIL
          IF (K /= 1) DDZ = ZSOIL (K - 1) - ZSOIL (K)
@@ -5391,8 +5391,9 @@ endif
 
 elemental real function spec_init(var)
 real, intent(in) :: var
-!var = ieee_value(1., ieee_signaling_nan)
-spec_init = huge(1.)
+!spec_init = ieee_value(1., ieee_signaling_nan)
+!spec_init = huge(1.)
+spec_init = 0.
 end function
 
 END MODULE module_sf_noahlsm
