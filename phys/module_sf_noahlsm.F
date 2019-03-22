@@ -799,7 +799,8 @@ FGSN=spec_init(FGSN)
 ! EXISTS OR NOT:
 ! ----------------------------------------------------------------------
          ESNOW = 0.0
-!print *,'DAVE i,j = ',iiloc,jjloc
+!print *,'DAVE before nopac i,j  = ',iiloc,jjloc
+!print *,'DAVE before nopac sh2o = ',sh2o
          IF (SNEQV  == 0.0) THEN
             CALL NOPAC (ETP,ETA,PRCP,SMC,SMCMAX,SMCWLT,                  &
                             SMCREF,SMCDRY,CMC,CMCMAX,NSOIL,DT,           &
@@ -2203,6 +2204,7 @@ RUNOFF2=spec_init(RUNOFF2)
 RUNOFF3=spec_init(RUNOFF3)
 SSOIL=spec_init(SSOIL)
 ET=spec_init(ET)
+!print *,'DAVE in nopac sh2o = ',sh2o
 ! ----------------------------------------------------------------------
 ! EXECUTABLE CODE BEGINS HERE:
 ! CONVERT ETP Fnd PRCP FROM KG M-2 S-1 TO M S-1 AND INITIALIZE DEW.
@@ -2250,6 +2252,7 @@ ET=spec_init(ET)
                       SMCDRY,CFACTR,                                    &
                        EDIR1,EC1,ET1,ETT1,SFCTMP,Q2,NROOT,RTDIS,FXEXP,  &
                       SFHEAD1RT,ETPND1 )
+!print *,'DAVE in nopac after evapo sh2o = ',sh2o
 !
 ! FASDAS
 !
@@ -2297,6 +2300,7 @@ ET=spec_init(ET)
                       EDIR1,EC1,ET1,                                    &
                       DRIP, SFHEAD1RT,INFXS1RT)
 
+!print *,'DAVE in nopac after smflx = ',sh2o
 ! ----------------------------------------------------------------------
 ! CONVERT MODELED EVAPOTRANSPIRATION FROM  M S-1  TO  KG M-2 S-1.
 ! ----------------------------------------------------------------------
@@ -2359,6 +2363,7 @@ ET=spec_init(ET)
                       RUNOFF1,RUNOFF2,RUNOFF3,                          &
                       EDIR1,EC1,ET1,                                    &
                       DRIP, SFHEAD1RT,INFXS1RT)
+!print *,'DAVE in nopac after smflx 2 sh2o = ',sh2o
 
 ! ----------------------------------------------------------------------
 ! CONVERT MODELED EVAPOTRANSPIRATION FROM 'M S-1' TO 'KG M-2 S-1'.
@@ -2397,6 +2402,7 @@ ET=spec_init(ET)
 ! ----------------------------------------------------------------------
 
       CALL TDFCND (DF1,SMC (1),QUARTZ,SMCMAX,SH2O (1),BEXP, PSISAT, SOILTYP, OPT_THCND)
+!print *,'DAVE in nopac after tdfcnd = ',sh2o
 
 !urban
       IF ( VEGTYP == ISURBAN ) DF1=3.24
@@ -2424,6 +2430,7 @@ ET=spec_init(ET)
                   TBOT,ZBOT,SMCWLT,PSISAT,SH2O,BEXP,F1,DF1,            &
                   QUARTZ,CSOIL,VEGTYP,ISURBAN,SOILTYP,OPT_THCND        &
                  ,HCPCT_FASDAS                                         ) !fasdas
+!print *,'DAVE in nopac after shflx = ',sh2o
 
 ! ----------------------------------------------------------------------
 ! SET FLX1 AND FLX3 (SNOPACK PHASE CHANGE HEAT FLUXES) TO ZERO SINCE
@@ -3194,6 +3201,7 @@ endif
       REAL, DIMENSION(1:NSOIL), INTENT(INOUT):: SMC, SH2O
       REAL, DIMENSION(1:NSOIL)             :: AI, BI, CI, STCF,RHSTS, RHSTT, &
                                               SICE, SH2OA, SH2OFG
+      REAL, DIMENSION(1:NSOIL)             :: sh2o_holder
       REAL                  :: DUMMY, EXCESS,FRZFACT,PCPDRP,RHSCT,TRHSCT
       REAL :: FAC2
       REAL :: FLIMIT
@@ -3276,14 +3284,17 @@ RUNOFF3=spec_init(RUNOFF3)
     PCPDRP = PCPDRP + SFHEAD1RT/1000./DT   ! convert SFHEAD1RT to (m/s)
 #endif
 
+!print *,'DAVE in smflx before sstep calls SH2O = ',SH2O
       IF ( ( (PCPDRP * DT) > (0.0001*1000.0* (- ZSOIL (1))* SMCMAX) )   &
            .OR. (FAC2 > FLIMIT) ) THEN
          CALL SRT (RHSTT,EDIR,ET,SH2O,SH2O,NSOIL,PCPDRP,ZSOIL,          &
                     DWSAT,DKSAT,SMCMAX,BEXP,RUNOFF1,                    &
                     RUNOFF2,DT,SMCWLT,SLOPE,KDT,FRZFACT,SICE,AI,BI,CI,  &
                     SFHEAD1RT,INFXS1RT)
+!print *,'DAVE in smflx before A sstep SH2O = ',SH2O
          CALL SSTEP (SH2OFG,SH2O,DUMMY,RHSTT,RHSCT,DT,NSOIL,SMCMAX,     &
                         CMCMAX,RUNOFF3,ZSOIL,SMC,SICE,AI,BI,CI,INFXS1RT)
+!print *,'DAVE in smflx after A sstep SH2O = ',SH2O
          DO K = 1,NSOIL
             SH2OA (K) = (SH2O (K) + SH2OFG (K)) * 0.5
          END DO
@@ -3291,16 +3302,22 @@ RUNOFF3=spec_init(RUNOFF3)
                     DWSAT,DKSAT,SMCMAX,BEXP,RUNOFF1,                    &
                     RUNOFF2,DT,SMCWLT,SLOPE,KDT,FRZFACT,SICE,AI,BI,CI,  &
                     SFHEAD1RT,INFXS1RT)
-         CALL SSTEP (SH2O,SH2O,CMC,RHSTT,RHSCT,DT,NSOIL,SMCMAX,         &
+!print *,'DAVE in smflx before B sstep SH2O = ',SH2O
+sh2o_holder=sh2o
+         CALL SSTEP (SH2O,SH2O_holder,CMC,RHSTT,RHSCT,DT,NSOIL,SMCMAX,         &
                         CMCMAX,RUNOFF3,ZSOIL,SMC,SICE,AI,BI,CI,INFXS1RT)
+!print *,'DAVE in smflx after B sstep SH2O = ',SH2O
 
       ELSE
          CALL SRT (RHSTT,EDIR,ET,SH2O,SH2O,NSOIL,PCPDRP,ZSOIL,          &
                     DWSAT,DKSAT,SMCMAX,BEXP,RUNOFF1,                    &
                     RUNOFF2,DT,SMCWLT,SLOPE,KDT,FRZFACT,SICE,AI,BI,CI,  &
                    SFHEAD1RT,INFXS1RT)
-         CALL SSTEP (SH2O,SH2O,CMC,RHSTT,RHSCT,DT,NSOIL,SMCMAX,         &
+!print *,'DAVE in smflx before C sstep SH2O = ',SH2O
+sh2o_holder=sh2o
+         CALL SSTEP (SH2O,SH2O_holder,CMC,RHSTT,RHSCT,DT,NSOIL,SMCMAX,         &
                      CMCMAX,RUNOFF3,ZSOIL,SMC,SICE,AI,BI,CI,INFXS1RT)
+!print *,'DAVE in smflx after C sstep SH2O = ',SH2O
 !      RUNOF = RUNOFF
 
       END IF
@@ -4598,6 +4615,8 @@ endif
 ! ----------------------------------------------------------------------
 RUNOFF3=spec_init(RUNOFF3)
 SH2OOUT=spec_init(SH2OOUT)
+!print *,'DAVE in sstep SH2OIN = ',SH2OIN
+!print *,'DAVE in sstep SH2OOUT = ',SH2OOUT
       DO K = 1,NSOIL
          RHSTT (K) = RHSTT (K) * DT
          AI (K) = AI (K) * DT
@@ -4625,7 +4644,7 @@ SH2OOUT=spec_init(SH2OOUT)
       WPLUS = 0.0
       RUNOFF3 = 0.
 
-!print *,'DAVE SH2OIN = ',SH2OIN
+!print *,'DAVE in sstep after rosR12 SH2OIN = ',SH2OIN
       DDZ = - ZSOIL (1)
       DO K = 1,NSOIL
          IF (K /= 1) DDZ = ZSOIL (K - 1) - ZSOIL (K)
@@ -5392,8 +5411,8 @@ endif
 elemental real function spec_init(var)
 real, intent(in) :: var
 !spec_init = ieee_value(1., ieee_signaling_nan)
-!spec_init = huge(1.)
-spec_init = 0.
+ spec_init = huge(1.)
+!spec_init = 0.
 end function
 
 END MODULE module_sf_noahlsm
