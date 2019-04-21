@@ -52,11 +52,7 @@ before_install:
 #======================================================================
 script:
   - date
-  - sed -e "s;TRAVIS_REPO_SLUG;${TRAVIS_REPO_SLUG};g" \
-        -e "s;TRAVIS_PULL_REQUEST_BRANCH;${TRAVIS_PULL_REQUEST_BRANCH};g" \
-        -e "s;TRAVIS_PULL_REQUEST_SHA;${TRAVIS_PULL_REQUEST_SHA};g" \
-        -e "s;TRAVIS_PULL_REQUEST;${TRAVIS_PULL_REQUEST};g" \
-        Dockerfile-template > Dockerfile
+  - sed -e "s;TRAVIS_REPO_SLUG;${TRAVIS_REPO_SLUG};g" -e "s;TRAVIS_PULL_REQUEST_BRANCH;${TRAVIS_PULL_REQUEST_BRANCH};g" -e "s;TRAVIS_PULL_REQUEST_SHA;${TRAVIS_PULL_REQUEST_SHA};g" -e "s;TRAVIS_PULL_REQUEST;${TRAVIS_PULL_REQUEST};g" Dockerfile-template > Dockerfile
   - date
   - docker build -t wrf_regtest --build-arg argname=regtest .
   - date
