@@ -1,0 +1,120 @@
+#======================================================================
+# Project settings
+#======================================================================
+# Only build for changes to a specific branch
+branches:
+  only:
+      - release-v4.1.1
+
+language: fortran
+
+#======================================================================
+# Environment
+#======================================================================
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-8
+      - gfortran-8
+      - g++-8
+      - lcov
+
+#======================================================================
+# Build Matrix
+#======================================================================
+matrix:
+   include:
+     - os: linux
+       compiler: gcc
+       sudo: false
+       dist: trusty
+
+#======================================================================
+# Docker does not work on Mac
+#======================================================================
+services:
+  - docker
+
+#======================================================================
+# Building
+#======================================================================
+before_install:
+  - |
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then
+          pip install --user cpp-coveralls
+      fi
+
+#======================================================================
+# Here are the run steps
+#======================================================================
+script:
+  - date
+  - sed -e 's/_HERE1_/"DAVE START"/' -e 's/_HERE2_/"DAVE END CLONE"/' Dockerfile-template > Dockerfile
+  - date
+  - docker build -t wrf_regtest --build-arg argname=regtest .
+  - date
+  - docker images -a
+  - date
+  - docker run -d -t --name test_001 wrf_regtest
+  - date
+  - docker ps -a
+  - date
+  - docker exec test_001 ./script.csh BUILD CLEAN 34 1 em_real -d J=-j@3
+  - date
+  - OK=0
+  - |
+      if [ $OK -eq 0 ] ; then
+        echo FILE STATUS
+        docker exec test_001 ls -ls WRF/main/wrf.exe
+        OK_wrf=$?
+        echo OK_wrf $OK_wrf
+        docker exec test_001 ls -ls WRF/main/real.exe
+        OK_real=$?
+        echo OK_real $OK_real
+        docker exec test_001 ls -ls WRF/main/real_nmm.exe
+        OK_nmm=$?
+        echo OK_nmm $OK_nmm
+        docker exec test_001 ls -ls WRF/main/ideal.exe
+        OK_ideal=$?
+        echo OK_ideal $OK_ideal
+      fi 
+  - date
+  - docker exec test_001 ls -ls WRF/main
+  - |
+      if [ $OK_wrf = 0 ] && ([ $OK_real = 0 ] || [ $OK_nmm = 0 ] || [ $OK_ideal = 0 ]) ; then
+         date
+         docker exec test_001 ./script.csh RUN em_real 34 em_real 01 NP=3
+         date
+         docker exec test_001 ls -ls WRF/test/em_real
+         date
+         docker exec test_001 ls -ls wrfoutput
+         date
+      else
+         docker exec test_001 gfortran --version
+         docker exec test_001 gcc --version
+         docker exec test_001 ls -ls WRF/main
+         docker exec test_001 ls -ls WRF/compile.log.em_real.34
+         docker exec test_001 grep Error WRF/compile.log.em_real.34
+         docker exec test_001 cat WRF/compile.log.em_real.34
+         date
+      fi
+  - docker stop test_001
+  - date
+  - docker rm test_001
+  - date
+  - docker rmi wrf_regtest
+  - date
+  - env | grep TRAVIS_
+
+#======================================================================
+# Notifications
+#======================================================================
+notifications:
+  email:
+    recipients: gill@ucar.edu
+    on_success: always
+    on_failure: always
+
