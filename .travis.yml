@@ -58,7 +58,7 @@ script:
   - cat Dockerfile
   - echo DAVE END
   - date
-  - docker build -t wrf_regtest --build-arg argname=regtest .
+  - docker build -t wrf_regtest .
   - date
   - docker images -a
   - date
