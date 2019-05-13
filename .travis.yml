@@ -16,11 +16,6 @@ addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-    packages:
-      - gcc-8
-      - gfortran-8
-      - g++-8
-      - lcov
 
 #======================================================================
 # Build Matrix
@@ -37,15 +32,6 @@ matrix:
 #======================================================================
 services:
   - docker
-
-#======================================================================
-# Building
-#======================================================================
-before_install:
-  - |
-      if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then
-          pip install --user cpp-coveralls
-      fi
 
 #======================================================================
 # Here are the run steps
@@ -112,9 +98,6 @@ script:
   - docker rm test_001m
   - date
   - docker rmi wrf_regtest
-  - date
-  - set hash = `docker images | grep davegill |  awk '{print  $3 }'  `
-  - docker rmi --force $hash
   - date
   - docker volume prune -f
   - date
