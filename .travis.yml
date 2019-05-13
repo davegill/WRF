@@ -54,62 +54,71 @@ script:
   - date
   - sed -e "s;TRAVIS_REPO_SLUG;${TRAVIS_REPO_SLUG};g" -e "s;TRAVIS_PULL_REQUEST_BRANCH;${TRAVIS_PULL_REQUEST_BRANCH};g" -e "s;TRAVIS_PULL_REQUEST_SHA;${TRAVIS_PULL_REQUEST_SHA};g" -e "s;TRAVIS_PULL_REQUEST;${TRAVIS_PULL_REQUEST};g" .testing/Dockerfile-template > Dockerfile
   - date
-  - echo DAVE START
   - cat Dockerfile
-  - echo DAVE END
   - date
   - docker build -t wrf_regtest .
   - date
   - docker images -a
   - date
-  - docker run -d -t --name test_001 wrf_regtest
+  - docker run -d -t --name test_001m wrf_regtest
   - date
   - docker ps -a
   - date
-  - docker exec test_001 ./script.csh BUILD CLEAN 34 1 em_real -d J=-j@3
+  - docker exec test_001m ./script.csh BUILD CLEAN 34 1 em_real -d J=-j@3
   - date
   - OK=0
   - |
       if [ $OK -eq 0 ] ; then
         echo FILE STATUS
-        docker exec test_001 ls -ls WRF/main/wrf.exe
+        docker exec test_001m ls -ls WRF/main/wrf.exe
         OK_wrf=$?
         echo OK_wrf $OK_wrf
-        docker exec test_001 ls -ls WRF/main/real.exe
+        docker exec test_001m ls -ls WRF/main/real.exe
         OK_real=$?
         echo OK_real $OK_real
-        docker exec test_001 ls -ls WRF/main/real_nmm.exe
+        docker exec test_001m ls -ls WRF/main/real_nmm.exe
         OK_nmm=$?
         echo OK_nmm $OK_nmm
-        docker exec test_001 ls -ls WRF/main/ideal.exe
+        docker exec test_001m ls -ls WRF/main/ideal.exe
         OK_ideal=$?
         echo OK_ideal $OK_ideal
       fi 
   - date
-  - docker exec test_001 ls -ls WRF/main
+  - docker exec test_001m ls -ls WRF/main
+  - date
+  - docker exec test_001m ls -ls wrfoutput | grep _BUILD_ | grep em_real_34
   - |
       if [ $OK_wrf = 0 ] && ([ $OK_real = 0 ] || [ $OK_nmm = 0 ] || [ $OK_ideal = 0 ]) ; then
          date
-         docker exec test_001 ./script.csh RUN em_real 34 em_real 01 NP=3
+         docker exec test_001m ./script.csh RUN em_real 34 em_real 03FD NP=3
          date
-         docker exec test_001 ls -ls WRF/test/em_real
+         docker exec test_001m ls -ls WRF/test/em_real
          date
-         docker exec test_001 ls -ls wrfoutput
+         docker exec test_001m ls -ls wrfoutput
+         date
+         docker exec test_001m ls -ls wrfoutput | grep _RUN_ | grep em_real_34_em_real
          date
       else
-         docker exec test_001 gfortran --version
-         docker exec test_001 gcc --version
-         docker exec test_001 ls -ls WRF/main
-         docker exec test_001 ls -ls WRF/compile.log.em_real.34
-         docker exec test_001 grep Error WRF/compile.log.em_real.34
-         docker exec test_001 cat WRF/compile.log.em_real.34
+         docker exec test_001m gfortran --version
+         docker exec test_001m gcc --version
+         docker exec test_001m ls -ls WRF/main
+         docker exec test_001m ls -ls WRF/compile.log.em_real.34
+         docker exec test_001m grep Error WRF/compile.log.em_real.34
+         docker exec test_001m cat WRF/compile.log.em_real.34
          date
       fi
-  - docker stop test_001
+  - docker stop test_001m
   - date
-  - docker rm test_001
+  - docker rm test_001m
   - date
   - docker rmi wrf_regtest
+  - date
+  - set hash = `docker images | grep davegill |  awk '{print  $3 }'  `
+  - docker rmi --force $hash
+  - date
+  - docker volume prune -f
+  - date
+  - docker system df
   - date
   - env | grep TRAVIS_
 
