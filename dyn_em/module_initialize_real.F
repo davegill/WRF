@@ -5926,8 +5926,9 @@ end function skip_middle_points_t
             kinterp_end = kinterp_end - final_zap_check_count
 #else
             outer : DO ko = kinterp_start , kinterp_end-1
-               IF ( ( ABS(ordered_porig(ko) - ordered_porig(ko+1)) .LT. MAX(zap_close_levels/10,50.) ) .AND. &
-                    ( ordered_porig(ko) .GT. zap_close_levels * 10 ) ) THEN
+!              IF ( ( ABS(ordered_porig(ko) - ordered_porig(ko+1)) .LT. MAX(zap_close_levels/10,50.) ) .AND. &
+!                   ( ordered_porig(ko) .GT. zap_close_levels * 10 ) ) THEN
+               IF ( ABS(ordered_porig(ko) - ordered_porig(ko+1)) .LT. zap_close_levels ) THEN
                   WRITE ( message , FMT='(a,I2.2,a,F9.2,a,F9.2,a,i4,a,i4,a,a)' ) '*** -> Check your wrfinput_d',id, &
                                                                     ' file, you might have input pressure levels too close together (',&
                                                                     ordered_porig(ko),' Pa and ', ordered_porig(ko+1), &
@@ -6030,6 +6031,9 @@ end function skip_middle_points_t
       REAL, DIMENSION(all_dim) :: all_x_full
       REAL , DIMENSION(target_dim) :: target_x_full
 
+      REAL , PARAMETER :: epsilon = 0.001             ! P or ln(P), diffs less than
+                                                      ! this are assigned the close value
+
       IF ( all_dim .LT. n+1 ) THEN
 print *,'all_dim = ',all_dim
 print *,'order = ',n
@@ -6060,7 +6064,7 @@ print *,'p target= ',target_x
 
       !  Loop over the list of target x and y values.
 
-      DO target_loop = 1 , target_dim
+      llovisnao: DO target_loop = 1 , target_dim
 
          !  Find the two trapping x values, and keep the indices.
 
@@ -6069,6 +6073,13 @@ print *,'p target= ',target_x
             a = target_x(target_loop) - all_x(loop)
             b = target_x(target_loop) - all_x(loop+1)
             IF ( a*b .LE. 0.0 ) THEN
+               IF      ( a .LE. epsilon ) THEN
+                  target_y(target_loop) = all_y(loop)
+                  CYCLE llovisnao
+               ELSE IF ( b .LE. epsilon ) THEN
+                  target_y(target_loop) = all_y(loop+1)
+                  CYCLE llovisnao
+               END IF
                loc_center_left  = loop
                loc_center_right = loop+1
                found_loc = .TRUE.
@@ -6209,7 +6220,7 @@ print *,'p target= ',target_x
 
          END IF
 
-      END DO
+      END DO llovisnao
 
    END SUBROUTINE lagrange_setup
 
