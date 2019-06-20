@@ -179,6 +179,17 @@ SUBROUTINE solve_em ( grid , config_flags  &
    INTEGER                                    :: num, den
    TYPE(WRFU_TimeInterval)                    :: dtInterval, intervaltime,restartinterval
 
+! bhv stuff
+   REAL, DIMENSION(:), ALLOCATABLE :: bhv
+INTERFACE
+SUBROUTINE med_vector_from_wrf ( grid, bhv )
+   USE module_domain
+   USE module_state_description
+   REAL, DIMENSION(:), ALLOCATABLE :: bhv
+   TYPE(domain) , TARGET          :: grid
+END SUBROUTINE med_vector_from_wrf
+END INTERFACE
+
 ! Define benchmarking timers if -DBENCH is compiled
 #include "bench_solve_em_def.h"
 
@@ -4659,6 +4670,14 @@ BENCH_END(bc_2d_tim)
      ENDIF
    ENDIF
 #endif
+
+!  Do something with the bhv array
+
+   CALL med_vector_from_wrf ( grid, bhv )
+   print *,'length of bhv = ',size(bhv)
+   print *,'bhv(1) and t_2(ips,kps,jps) = ',bhv(1),grid%t_2(ips,kps,jps)
+   print *,'bhv(size(bhv)) and mu_2(ipe-1,jpe-1) = ',bhv(size(bhv)),grid%mu_2(ipe-1,jpe-1)
+   DEALLOCATE(bhv)
 
 !  Max values of CFL for adaptive time step scheme
 

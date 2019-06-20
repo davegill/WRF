@@ -274,3 +274,143 @@ SUBROUTINE med_add_config_info_to_grid ( grid )
 
 END SUBROUTINE med_add_config_info_to_grid
 
+SUBROUTINE med_vector_from_wrf ( grid, bhv )
+
+   USE module_domain
+   USE module_state_description
+ 
+   IMPLICIT NONE
+
+   !  Output data: big honking vector.
+
+   REAL, DIMENSION(:), ALLOCATABLE :: bhv
+
+   !  Input data.
+
+   TYPE(domain) , TARGET          :: grid
+
+   !  Local data.
+
+   INTEGER :: ids, ide, jds, jde, kds, kde, &
+              ims, ime, jms, jme, kms, kme, &
+              ips, ipe, jps, jpe, kps, kpe, &
+              i, j, k, length, count
+
+   !  Not used, but part of the subroutine returned values.
+
+   INTEGER :: imsx, imex, jmsx, jmex, kmsx, kmex,    &
+              ipsx, ipex, jpsx, jpex, kpsx, kpex,    &
+              imsy, imey, jmsy, jmey, kmsy, kmey,    &
+              ipsy, ipey, jpsy, jpey, kpsy, kpey
+
+   ! Arbitrary count of arrays of interest.
+
+   INTEGER, PARAMETER :: num_3d   = 3 ! T, Qv, P
+   INTEGER, PARAMETER :: num_3dx  = 1 ! U
+   INTEGER, PARAMETER :: num_3dy  = 1 ! V
+   INTEGER, PARAMETER :: num_3dz  = 2 ! PH, W
+   INTEGER, PARAMETER :: num_2d   = 1 ! MU
+
+   !  For this grid, what are the dimensions.
+
+   CALL get_ijk_from_grid (  grid ,                   &
+                             ids, ide, jds, jde, kds, kde,    &
+                             ims, ime, jms, jme, kms, kme,    &
+                             ips, ipe, jps, jpe, kps, kpe,    &
+                             imsx, imex, jmsx, jmex, kmsx, kmex,    &
+                             ipsx, ipex, jpsx, jpex, kpsx, kpex,    &
+                             imsy, imey, jmsy, jmey, kmsy, kmey,    &
+                             ipsy, ipey, jpsy, jpey, kpsy, kpey )
+
+   !  Get the length of the output 1d vector that is to be allocated.
+
+   length = num_3d *(MIN(ide-1,ipe)-ips+1)*(MIN(jde-1,jpe)-jps+1)*(kpe-1-kps+1) + &
+            num_3dx*(MIN(ide  ,ipe)-ips+1)*(MIN(jde-1,jpe)-jps+1)*(kpe-1-kps+1) + &
+            num_3dy*(MIN(ide-1,ipe)-ips+1)*(MIN(jde  ,jpe)-jps+1)*(kpe-1-kps+1) + &
+            num_3dz*(MIN(ide-1,ipe)-ips+1)*(MIN(jde-1,jpe)-jps+1)*(kpe  -kps+1) + &
+            num_2d *(MIN(ide-1,ipe)-ips+1)*(MIN(jde-1,jpe)-jps+1)
+
+   !  ... and allocate the array.
+
+   ALLOCATE(bhv(length))
+
+   !  We only want to store computational sizes of this patch, not memory. So we need to use explicit limits.
+
+   count = 1
+   CALL store_to_bhv ( grid%t_2               , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe), kps, kpe-1)
+   CALL store_to_bhv ( grid%moist(:,:,:,P_Qv) , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe), kps, kpe-1)
+   CALL store_to_bhv ( grid%p                 , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe), kps, kpe-1)
+
+   CALL store_to_bhv ( grid%u_2               , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide  ,ipe), jps, MIN(jde-1,jpe), kps, kpe-1)
+
+   CALL store_to_bhv ( grid%v_2               , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde  ,jpe), kps, kpe-1)
+
+   CALL store_to_bhv ( grid%ph_2              , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe), kps, kpe  )
+   CALL store_to_bhv ( grid%w_2               , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe), kps, kpe  )
+
+   CALL store_to_bhv2( grid%mu_2              , bhv, count, length, ims, ime, jms, jme,           ips, MIN(ide-1,ipe), jps, MIN(jde-1,jpe)            )
+
+END SUBROUTINE med_vector_from_wrf
+
+SUBROUTINE store_to_bhv ( f , bhv, count, length, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe )
+
+   IMPLICIT NONE
+
+   !  Input data.
+
+   REAL, DIMENSION(ims:ime,kms:kme,jms:jme) :: f
+   INTEGER :: length, ims, ime, jms, jme, kms, kme, ips, ipe, jps, jpe, kps, kpe
+
+   !  Output data.
+
+   REAL, DIMENSION(length) :: bhv
+
+   !  In/out data.
+
+   INTEGER :: count
+
+   !  Local data.
+
+   INTEGER :: i, j, k
+
+   DO j = jps, jpe
+   DO k = kps, kpe
+   DO i = ips, ipe
+      bhv(count) = f(i,k,j)
+      count = count + 1
+   END DO
+   END DO
+   END DO
+
+END SUBROUTINE store_to_bhv
+
+SUBROUTINE store_to_bhv2( f , bhv, count, length, ims, ime, jms, jme, ips, ipe, jps, jpe )
+
+   IMPLICIT NONE
+
+   !  Input data.
+
+   REAL, DIMENSION(ims:ime,jms:jme) :: f
+   INTEGER :: length, ims, ime, jms, jme, ips, ipe, jps, jpe
+
+   !  Output data.
+
+   REAL, DIMENSION(length) :: bhv
+
+   !  In/out data.
+
+   INTEGER :: count
+
+   !  Local data.
+
+   INTEGER :: i, j
+
+   DO j = jps, jpe
+   DO i = ips, ipe
+      bhv(count) = f(i,j)
+      count = count + 1
+   END DO
+   END DO
+
+END SUBROUTINE store_to_bhv2
+
