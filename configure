@@ -205,7 +205,7 @@ fi
 # If the user asked for classic netcdf, acquiesce to the request.
 
 if [ "`uname`" = "Linux" ] ; then
-  ans="`whereis nf-config`"
+  ans="`which nf-config`"
 elif [ "`uname`" = "Darwin" ] ; then
   ans="`which nf-config`"
 else
