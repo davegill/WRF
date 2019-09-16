@@ -1,0 +1,131 @@
+#======================================================================
+# Which branches are impacted by this
+#======================================================================
+# Only build for changes to a specific branch
+branches:
+  only:
+      - master
+      - develop
+      - /^release-v.*$/
+
+#======================================================================
+# Build Matrix
+#======================================================================
+env:
+   matrix:
+      - name=real_s   core=em_real        par=32 nest=1 flag='  '     data_loc=em_real        test=07NE proc=1 cenv='WRF_EM_CORE=1'
+      - name=real_o   core=em_real        par=33 nest=1 flag='  '     data_loc=em_real        test=07NE proc=3 cenv='WRF_EM_CORE=1'
+      - name=real_m   core=em_real        par=34 nest=1 flag='  '     data_loc=em_real        test=07NE proc=3 cenv='WRF_EM_CORE=1'
+      - name=nmm_s    core=nmm_real       par=32 nest=1 flag='  '     data_loc=nmm_nest       test=01   proc=1 cenv='WRF_NMM_CORE=1'
+      - name=nmm_m    core=nmm_real       par=34 nest=1 flag='  '     data_loc=nmm_nest       test=01   proc=3 cenv='WRF_NMM_CORE=1'
+      - name=qss_s    core=em_quarter_ss  par=32 nest=1 flag='  '     data_loc=em_quarter_ss  test=02NE proc=1 cenv='WRF_EM_CORE=1'
+      - name=qss_o    core=em_quarter_ss  par=33 nest=1 flag='  '     data_loc=em_quarter_ss  test=02NE proc=3 cenv='WRF_EM_CORE=1'
+      - name=qss_m    core=em_quarter_ss  par=34 nest=1 flag='  '     data_loc=em_quarter_ss  test=02NE proc=3 cenv='WRF_EM_CORE=1'
+      - name=bw_s     core=em_b_wave      par=32 nest=1 flag='  '     data_loc=em_b_wave      test=1NE  proc=1 cenv='WRF_EM_CORE=1'
+      - name=bw_o     core=em_b_wave      par=33 nest=1 flag='  '     data_loc=em_b_wave      test=1NE  proc=3 cenv='WRF_EM_CORE=1'
+      - name=bw_m     core=em_b_wave      par=34 nest=1 flag='  '     data_loc=em_b_wave      test=1NE  proc=3 cenv='WRF_EM_CORE=1'
+      - name=real8_s  core=em_real        par=32 nest=1 flag='   -r8' data_loc=em_real8       test=14   proc=1 cenv='WRF_EM_CORE=1'
+      - name=real8_o  core=em_real        par=33 nest=1 flag='   -r8' data_loc=em_real8       test=14   proc=3 cenv='WRF_EM_CORE=1'
+      - name=real8_m  core=em_real        par=34 nest=1 flag='   -r8' data_loc=em_real8       test=14   proc=3 cenv='WRF_EM_CORE=1'
+      - name=qss8_s   core=em_quarter_ss  par=32 nest=1 flag='   -r8' data_loc=em_quarter_ss8 test=03   proc=1 cenv='WRF_EM_CORE=1'
+      - name=qss8_o   core=em_quarter_ss  par=33 nest=1 flag='   -r8' data_loc=em_quarter_ss8 test=03   proc=3 cenv='WRF_EM_CORE=1'
+      - name=qss8_m   core=em_quarter_ss  par=34 nest=1 flag='   -r8' data_loc=em_quarter_ss8 test=03   proc=3 cenv='WRF_EM_CORE=1'
+      - name=move_m   core=em_real        par=34 nest=3 flag='  '     data_loc=em_move        test=01   proc=3 cenv='WRF_EM_CORE=1'
+      - name=fire_s   core=em_fire        par=32 nest=1 flag='  '     data_loc=em_fire        test=01   proc=1 cenv='WRF_EM_CORE=1'
+      - name=fire_o   core=em_fire        par=33 nest=1 flag='  '     data_loc=em_fire        test=01   proc=3 cenv='WRF_EM_CORE=1'
+      - name=fire_m   core=em_fire        par=34 nest=1 flag='  '     data_loc=em_fire        test=01   proc=3 cenv='WRF_EM_CORE=1'
+      - name=hill_s   core=em_hill2d_x    par=32 nest=0 flag='  '     data_loc=em_hill2d_x    test=01   proc=1 cenv='WRF_EM_CORE=1'
+#  NO chem, ever, I am not kidding, for reals!
+#     - name=chem_s   core=em_real        par=32 nest=1 flag='  '     data_loc=em_chem        test=1    proc=1 cenv='WRF_CHEM=1'
+#     - name=chem_m   core=em_real        par=34 nest=1 flag='  '     data_loc=em_chem        test=1    proc=3 cenv='WRF_CHEM=1'
+
+
+services:
+  - docker
+
+#======================================================================
+# Building
+#======================================================================
+before_install:
+  - |
+      if [[ "$TRAVIS_OS_NAME" == "linux" ]] ; then
+          pip install --user cpp-coveralls
+      fi
+
+#======================================================================
+# Here are the run steps
+#======================================================================
+script:
+  - date
+  - sed -e "s;TRAVIS_REPO_SLUG;${TRAVIS_REPO_SLUG};g" -e "s;TRAVIS_PULL_REQUEST_BRANCH;${TRAVIS_PULL_REQUEST_BRANCH};g" -e "s;TRAVIS_PULL_REQUEST_SHA;${TRAVIS_PULL_REQUEST_SHA};g" -e "s;TRAVIS_PULL_REQUEST;${TRAVIS_PULL_REQUEST};g" .testing/Dockerfile-template > Dockerfile
+  - date
+  - docker build -t wrf_regtest --build-arg argname=regtest .
+  - date
+  - docker images -a
+  - date
+  - docker run -d -t --name ${name} wrf_regtest
+  - date
+  - docker ps -a
+  - date
+  - travis_wait 25 docker exec ${name} ./script.csh BUILD CLEAN ${par} ${nest} ${core} ${flag} J=-j@3 ${cenv}
+  - date
+  - OK=0
+  - |
+      if [ $OK -eq 0 ] ; then
+        echo FILE STATUS
+        docker exec ${name} ls -ls WRF/main/wrf.exe
+        OK_wrf=$?
+        echo OK_wrf $OK_wrf
+        docker exec ${name} ls -ls WRF/main/real.exe
+        OK_real=$?
+        echo OK_real $OK_real
+        docker exec ${name} ls -ls WRF/main/real_nmm.exe
+        OK_nmm=$?
+        echo OK_nmm $OK_nmm
+        docker exec ${name} ls -ls WRF/main/ideal.exe
+        OK_ideal=$?
+        echo OK_ideal $OK_ideal
+      fi 
+  - date
+  - docker exec ${name} ls -ls WRF/main
+  - |
+      if [ $OK_wrf = 0 ] && ([ $OK_real = 0 ] || [ $OK_nmm = 0 ] || [ $OK_ideal = 0 ]) ; then
+         date
+         docker exec ${name} ./script.csh RUN ${core} ${par} ${data_loc} ${test} NP=${proc} OMP_NUM_THREADS=${proc}
+         date
+         docker exec ${name} cat WRF/test/${core}/real.print.out
+         date
+         docker exec ${name} ls -ls WRF/test/${core}
+         date
+         docker exec ${name} ls -ls wrfoutput
+         date
+      else
+         docker exec ${name} gfortran --version
+         docker exec ${name} gcc --version
+         docker exec ${name} ls -ls WRF
+         docker exec ${name} ls -ls WRF/main
+         docker exec ${name} ls -ls WRF/compile.log.${data_loc}.${par}
+         docker exec ${name} grep Error WRF/compile.log.${data_loc}.${par}
+         docker exec ${name} cat WRF/compile.log.${data_loc}.${par}
+         date
+      fi
+  - docker stop ${name}
+  - date
+  - docker rm ${name}
+  - date
+  - docker rmi wrf_regtest
+  - date
+  - docker volume prune -f
+  - date
+  - docker system df
+  - date
+  - env | grep TRAVIS_
+
+#======================================================================
+# Notifications
+#======================================================================
+notifications:
+  email:
+    recipients: gill@ucar.edu
+    on_success: always
+    on_failure: always

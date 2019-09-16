@@ -1,0 +1,19 @@
+#
+FROM davegill/wrf-coop:fifthtry
+MAINTAINER Dave Gill <gill@ucar.edu>
+
+RUN git clone https://github.com/TRAVIS_REPO_SLUG.git TRAVIS_REPO_SLUG \
+  && cd TRAVIS_REPO_SLUG \
+  && git fetch origin +refs/pull/TRAVIS_PULL_REQUEST/merge: \
+  && git checkout -qf FETCH_HEAD \
+  && git branch \
+  && echo branch to be TRAVIS_PULL_REQUEST_BRANCH \
+  && git log --oneline -10 \
+  && echo want SHA to be TRAVIS_PULL_REQUEST_SHA \
+  && cd .. \
+  && mv WRF /wrf/WRF
+
+RUN curl -SL http://www2.mmm.ucar.edu/wrf/dave/script.tar | tar -xC /wrf
+
+VOLUME /wrf
+CMD ["/bin/tcsh"]
