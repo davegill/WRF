@@ -3,9 +3,9 @@ provider "aws" {
    profile    = "${var.aws_profile}" #.aws/credentials
    }
 
-//Run number of test case based on count value: say 3 will run 3 test cases 
+//Run number of test case based on *default* value: default = 10 will run all ten test scripts
 variable "instance_count" {
- default = 1
+ default = 10
 }
 
 variable "hostnames" {
