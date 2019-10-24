@@ -25,7 +25,7 @@ MODLL = ../wrftladj/module_linked_list2.o ../share/module_model_constants.o
 MODPT = ../dyn_em/module_bc_em.o ../wrftladj/mediation_pertmod_io.o
 
 deflt :
-		@ echo Please compile the code using ./compile
+		@ echo Dude, please. Compile the code using ./compile
 
 include ./configure.wrf
 
