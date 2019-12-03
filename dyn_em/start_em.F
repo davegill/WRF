@@ -91,6 +91,7 @@
    REAL :: spongeweight
    LOGICAL :: first_trip_for_this_domain, start_of_simulation, fill_w_flag
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
+   INTEGER, EXTERNAL :: wrf_dm_monitor_rank
 
 #if (WRF_CHEM != 1)
       REAL,ALLOCATABLE,DIMENSION(:,:,:) :: cldfra_old
@@ -127,6 +128,10 @@
 !  CCN for MP=18 initializatio
    REAL :: ccn_max_val
 
+   INTEGER :: root, ierr, mpi_comm_here
+   INTEGER , DIMENSION(4) :: each_is_ie_js_je
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: array_is_ie_js_je
+
    REAL :: max_mf, max_rot_angle
    CALL get_ijk_from_grid ( grid ,                              &
                            ids, ide, jds, jde, kds, kde,        &
@@ -140,6 +145,29 @@
    kts = kps ; kte = kpe     ! note that tile is entire patch
    its = ips ; ite = ipe     ! note that tile is entire patch
    jts = jps ; jte = jpe    ! note that tile is entire patch
+
+   CALL wrf_get_dm_communicator( mpi_comm_here )
+   root = wrf_dm_monitor_rank()
+   ALLOCATE ( array_is_ie_js_je(4,ntasks) )
+   each_is_ie_js_je(1) = its
+   each_is_ie_js_je(2) = ite
+   each_is_ie_js_je(3) = jts
+   each_is_ie_js_je(4) = jte
+   CALL wrf_gather_integer (each_is_ie_js_je ,            &    ! sendbuf
+                            4 ,                           &    ! sendcount
+                            array_is_ie_js_je ,           &    ! recvbuf
+                            4 ,                           &    ! recvcount
+                            root ,                        &    ! root 
+                            mpi_comm_here ,               &    ! communicator
+                            ierr )
+    IF (wrf_dm_on_monitor() ) THEN
+       DO j = 1, ntasks
+          WRITE ( a_message , fmt='(4i15)') array_is_ie_js_je(1,j),array_is_ie_js_je(2,j),array_is_ie_js_je(3,j),array_is_ie_js_je(4,j)
+          CALL wrf_message(trim(a_message))
+       END DO
+    END IF
+    call wrf_error_fatal ('just stop it')
+
 #if (WRF_CHEM != 1)
          ALLOCATE(CLDFRA_OLD(IMS:IME,KMS:KME,JMS:JME),STAT=I)  ; CLDFRA_OLD = 0.
 #endif
@@ -2393,3 +2421,34 @@ endif
    END SUBROUTINE rebalance_cycl
 
 !---------------------------------------------------------------------
+
+   SUBROUTINE wrf_gather_integer (sbuf ,                        &    ! sendbuf
+                                  scount ,                      &    ! sendcount
+                                  rbuf ,                        &    ! recvbuf
+                                  rcount ,                      &    ! recvcount
+                                  root ,                        &    ! root 
+                                  comm ,                        &    ! communicator
+                                  ierr )
+   IMPLICIT NONE 
+   INTEGER scount, rcount, comm, root, ierr 
+   INTEGER, DIMENSION(*) :: sbuf, rbuf
+#ifndef STUBMPI
+   INCLUDE 'mpif.h'
+
+           CALL mpi_gather( sbuf ,                         &    ! sendbuf
+                            scount ,                       &    ! sendcount
+                            MPI_INTEGER ,                  &    ! sendtype
+                            rbuf ,                         &    ! recvbuf
+                            rcount ,                       &    ! recvcount
+                            MPI_INTEGER ,                  &    ! recvtype
+                            root ,                         &    ! root 
+                            comm ,                         &    ! communicator
+                            ierr )
+#elif
+           rbuf = sbuf
+#endif
+
+   END SUBROUTINE wrf_gather_integer
+
+!---------------------------------------------------------------------
+
