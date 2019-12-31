@@ -1,3 +1,77 @@
+MODULE module_make_sense_of_this
+
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: owned_per_MPI_task_cells
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: owned_per_MPI_task_i
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: owned_per_MPI_task_j
+
+
+CONTAINS
+
+   SUBROUTINE feed_the_machine ( total_computational_MPI_ranks , &
+                                 array_is_ie_js_je )
+
+      IMPLICIT NONE
+
+      INTEGER, INTENT(IN) :: total_computational_MPI_ranks
+      INTEGER, INTENT(IN) , DIMENSION(4,total_computational_MPI_ranks) :: array_is_ie_js_je
+
+      !  Local variables
+
+      INTEGER :: i, j, m, c
+      INTEGER , DIMENSION(total_computational_MPI_ranks) :: count
+      INTEGER :: ids, ide, jds, jde
+      CHARACTER (LEN=1024) :: message
+
+      !  Assignments from the goody bag
+
+      ids = array_is_ie_js_je(1,1)
+      jds = array_is_ie_js_je(3,1)
+
+      ide = array_is_ie_js_je(2,total_computational_MPI_ranks)
+      jde = array_is_ie_js_je(4,total_computational_MPI_ranks)
+
+      !  Allocate the "contains" arrays.
+
+
+      m = 1
+      ALLOCATE(owned_per_MPI_task_cells( ( array_is_ie_js_je(4,m) - array_is_ie_js_je(3,m) + 1 ) * &
+                                         ( array_is_ie_js_je(2,m) - array_is_ie_js_je(1,m) + 1 ) , &
+                                         total_computational_MPI_ranks ) )
+      ALLOCATE(owned_per_MPI_task_i    ( ( array_is_ie_js_je(4,m) - array_is_ie_js_je(3,m) + 1 ) * &
+                                         ( array_is_ie_js_je(2,m) - array_is_ie_js_je(1,m) + 1 ) , &
+                                         total_computational_MPI_ranks ) )
+      ALLOCATE(owned_per_MPI_task_j    ( ( array_is_ie_js_je(4,m) - array_is_ie_js_je(3,m) + 1 ) * &
+                                         ( array_is_ie_js_je(2,m) - array_is_ie_js_je(1,m) + 1 ) , &
+                                         total_computational_MPI_ranks ) )
+
+      owned_per_MPI_task_cells = -1
+      owned_per_MPI_task_i     = -1
+      owned_per_MPI_task_j     = -1
+
+      DO m = 1, total_computational_MPI_ranks
+         count(m) = 0
+         DO j = array_is_ie_js_je(3,m), MIN(array_is_ie_js_je(4,m),jde-1)
+            DO i = array_is_ie_js_je(1,m), MIN(array_is_ie_js_je(2,m),ide-1)
+               count(m) = count(m) + 1
+               owned_per_MPI_task_cells(count(m),m) = (j-1)*(ide-1) + i
+               owned_per_MPI_task_i    (count(m),m) = i
+               owned_per_MPI_task_j    (count(m),m) = j
+            END DO
+         END DO
+      END DO
+
+      DO m = 1, total_computational_MPI_ranks
+         WRITE(UNIT=10,FMT='("MPI RANK = ",I6," OF ",I6," Processes")') m-1,total_computational_MPI_ranks
+         DO c = 1, count(m)
+            WRITE(UNIT=10,FMT='(I8,5X,"(",I4,",",I4,") ")') owned_per_MPI_task_cells(c,m), &
+                                 owned_per_MPI_task_i(c,m),owned_per_MPI_task_j(c,m)
+         END DO
+      END DO
+
+   END SUBROUTINE feed_the_machine
+
+END MODULE module_make_sense_of_this
+
 !-------------------------------------------------------------------
 
    SUBROUTINE start_domain_em ( grid, allowed_to_read &
@@ -47,6 +121,7 @@
 
    USE module_model_constants
    USE module_avgflx_em, ONLY : zero_avgflx
+   USE module_make_sense_of_this
 
    IMPLICIT NONE
    !  Input data.
@@ -91,6 +166,7 @@
    REAL :: spongeweight
    LOGICAL :: first_trip_for_this_domain, start_of_simulation, fill_w_flag
    LOGICAL, EXTERNAL :: wrf_dm_on_monitor
+   INTEGER, EXTERNAL :: wrf_dm_monitor_rank
 
 #if (WRF_CHEM != 1)
       REAL,ALLOCATABLE,DIMENSION(:,:,:) :: cldfra_old
@@ -127,6 +203,10 @@
 !  CCN for MP=18 initializatio
    REAL :: ccn_max_val
 
+   INTEGER :: root, ierr, mpi_comm_here
+   INTEGER , DIMENSION(4) :: each_is_ie_js_je
+   INTEGER , ALLOCATABLE, DIMENSION(:,:) :: array_is_ie_js_je
+
    REAL :: max_mf, max_rot_angle
    CALL get_ijk_from_grid ( grid ,                              &
                            ids, ide, jds, jde, kds, kde,        &
@@ -140,6 +220,36 @@
    kts = kps ; kte = kpe     ! note that tile is entire patch
    its = ips ; ite = ipe     ! note that tile is entire patch
    jts = jps ; jte = jpe    ! note that tile is entire patch
+
+   CALL wrf_get_dm_communicator( mpi_comm_here )
+   root = wrf_dm_monitor_rank()
+   ALLOCATE ( array_is_ie_js_je(4,ntasks) )
+   each_is_ie_js_je(1) = its
+   each_is_ie_js_je(2) = ite
+   each_is_ie_js_je(3) = jts
+   each_is_ie_js_je(4) = jte
+   CALL wrf_gather_integer (each_is_ie_js_je ,            &    ! sendbuf
+                            4 ,                           &    ! sendcount
+                            array_is_ie_js_je ,           &    ! recvbuf
+                            4 ,                           &    ! recvcount
+                            root ,                        &    ! root 
+                            mpi_comm_here ,               &    ! communicator
+                            ierr )
+    IF (wrf_dm_on_monitor() ) THEN
+       DO j = 1, ntasks
+          WRITE ( a_message , fmt='(4i15)') &
+             array_is_ie_js_je(1,j),array_is_ie_js_je(2,j),&
+             array_is_ie_js_je(3,j),array_is_ie_js_je(4,j)
+          CALL wrf_message(trim(a_message))
+       END DO
+
+       CALL feed_the_machine ( ntasks, array_is_ie_js_je )
+   
+       DEALLOCATE(owned_per_MPI_task_cells)
+       DEALLOCATE(owned_per_MPI_task_i    )
+       DEALLOCATE(owned_per_MPI_task_j    )
+    END IF
+
 #if (WRF_CHEM != 1)
          ALLOCATE(CLDFRA_OLD(IMS:IME,KMS:KME,JMS:JME),STAT=I)  ; CLDFRA_OLD = 0.
 #endif
@@ -2393,3 +2503,37 @@ endif
    END SUBROUTINE rebalance_cycl
 
 !---------------------------------------------------------------------
+
+   SUBROUTINE wrf_gather_integer (sbuf ,                        &    ! sendbuf
+                                  scount ,                      &    ! sendcount
+                                  rbuf ,                        &    ! recvbuf
+                                  rcount ,                      &    ! recvcount
+                                  root ,                        &    ! root 
+                                  comm ,                        &    ! communicator
+                                  ierr )
+   IMPLICIT NONE 
+   INTEGER scount, rcount, comm, root, ierr 
+   INTEGER, DIMENSION(*) :: sbuf, rbuf
+#ifndef STUBMPI
+   INCLUDE 'mpif.h'
+
+           CALL mpi_gather( sbuf ,                         &    ! sendbuf
+                            scount ,                       &    ! sendcount
+                            MPI_INTEGER ,                  &    ! sendtype
+                            rbuf ,                         &    ! recvbuf
+                            rcount ,                       &    ! recvcount
+                            MPI_INTEGER ,                  &    ! recvtype
+                            root ,                         &    ! root 
+                            comm ,                         &    ! communicator
+                            ierr )
+#elif
+           rbuf = sbuf
+#endif
+
+   END SUBROUTINE wrf_gather_integer
+
+!---------------------------------------------------------------------
+
+
+!---------------------------------------------------------------------
+
