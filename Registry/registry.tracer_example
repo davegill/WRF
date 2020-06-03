@@ -1,0 +1,15 @@
+#
+# Tracer example
+#
+
+#	Tracer arrays
+
+state   real    -          ikjftb  texamp        1         -     -    -
+state   real    te_1       ikjftb  texamp        1         -     irh  "te_1"         "Tracer example 1"     "Dimensionless"
+state   real    te_2       ikjftb  texamp        1         -     irh  "te_2"         "Tracer example 2"     "Dimensionless"
+state   real    te_3       ikjftb  texamp        1         -     irh  "te_3"         "Tracer example 3"     "Dimensionless"
+
+#	Tracer example package
+
+package   tracer_with_2 tracer_opt==4       -             texamp:te_1,te_2
+package   tracer_with_3 tracer_opt==5       -             texamp:te_1,te_2,te_3
