@@ -67,7 +67,6 @@ contains
                    ,ep1, ep2, qmin                                &
                    ,XLS, XLV0, XLF0, den0, denr                   &
                    ,cliq,cice,psat                                &
-!mc                   ,lat                                           &
                    ,rain,rainncv                                  &
                    ,sr                                            &
                    ,its,ite, kts,kte                              &
@@ -2396,7 +2395,7 @@ contains
 
 !-----------------------------------------------------------------------
      subroutine effectRad_wsm6 (t, pii, th, qc, qi, qs, rho, qmin, t0c,        &
-                                re_qc, re_qi, re_qs, kts, kte, ii, jj)
+                                re_qc, re_qi, re_qs, kts, kte)
 
 !-----------------------------------------------------------------------
 !  Compute radiation effective radii of cloud water, ice, and snow for 
@@ -2410,7 +2409,7 @@ contains
       implicit none
 
 !..Sub arguments
-      integer, intent(in) :: kts, kte, ii, jj
+      integer, intent(in) :: kts, kte
       real, intent(in) :: qmin
       real, intent(in) :: t0c
       real, dimension( kts:kte ), intent(out)::  t        
